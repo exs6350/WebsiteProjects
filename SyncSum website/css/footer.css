@@ -1,0 +1,13 @@
+#footer{
+	color: white;
+	height: 100px;
+	font-family: Helvetica, Arial;
+	width: 100%;
+	background-color: rgb(37,37,37);
+	font-size: .5em;
+}
+
+#footer h2{
+	padding-top: 2.5%;
+	margin: 0;
+}

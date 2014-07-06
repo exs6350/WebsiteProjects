@@ -1,0 +1,135 @@
+#left-content{
+	background-color: white;
+	border-bottom-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 2%;
+	margin-bottom: 2%;
+}
+
+#main-header{
+	background-color: rgb(24, 31, 38);
+	display: inline-block;
+	width: 100%;
+	text-align: center;
+}
+
+#main-header h3{
+	color: white;
+}
+
+.img-thumbnail{
+	width: 100%;
+	padding: 0;
+}
+
+.img-thumbnail img{
+	display: inline-block;
+	width: 100%;
+}
+
+.profile-links{
+	background-color: white;
+	display: inline-block;
+	width: 100%;
+	color: rgb(16, 131, 198);
+	padding-top: 2%;
+}
+
+.profile-links span img{
+	float: left;
+	margin-right: 5%;
+	margin-left: 20%;
+	display: inline-block;
+	margin-top: 1%;
+}
+
+.profile-options{
+	display: inline-block;
+	width: 100%;
+}
+
+.profile-options div{
+	background-color: rgb(44, 56, 68);
+	width: 100%;
+	display: inline-block;
+	height: 100%;
+	border-style: solid;
+	border-width: thin 0px thin 0px;
+	border-color: white;
+}
+
+.profile-options div h3{
+	color: white;
+}
+
+#welcome{
+	background-color: white;
+	border-bottom-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+}
+
+#message-board{
+	background-color: white;
+	border-bottom-left-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	-webkit-border-bottom-right-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+}
+
+#bot-header{
+	background-color: rgb(41,92,142);
+}
+
+#bot-header h2{
+	margin-left: 2%;
+}
+
+
+/**
+ * 	Accordion style drop downs
+ */
+#profile-dropdown, #presence-dropdown, #content-dropdown{
+	display: none;
+}
+
+#profile-status{
+	background-color: white;
+	width: 100%;
+	text-align: center;
+}
+
+#section-status div{
+	background-color: rgb(78, 147, 207);
+	border-style: solid;
+	border-width: thin 0px thin 0px;
+	border-color: white;
+	width: 100%;
+	text-align: center;
+}
+
+#profile-activate{
+	color: white;
+	padding-left: 20%;
+}
+
+#presence-activate{
+	color: white;
+	padding-left: 20%;
+}
+
+#content-activate{
+	color: white;
+	padding-left: 20%;
+}

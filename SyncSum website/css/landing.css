@@ -1,0 +1,51 @@
+#land{
+	height: 75%;
+	width: 100%;
+	height: 1000px;
+	background-image: url("http://syncsum.affixedtolife.com/Images/background-overlay.gif");
+	background-repeat:no-repeat;
+	background-size: 100% 100%;
+	z-index: -5;
+}
+
+.landing-space{
+	height: 25%;
+	
+}
+
+#land h1{
+	color: white;
+	font-size: 3em;
+}
+
+#land img{
+	height: 125px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#land h4{
+	color: white;
+	font-size: 1.5em;
+}
+
+#land p{
+	color: white;
+	font-size: 1.25em;
+}
+
+#wrapper-bottom-landing{
+	text-align: center;
+	padding-top: 5%; 
+}
+
+.landing-space button[type="submit"]{
+	width: 200px;
+	height: 100%;
+	font-size: 2em;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-khtml-border-radius: 10px;
+}
