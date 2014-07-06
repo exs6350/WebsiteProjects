@@ -1,0 +1,30 @@
+body{
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+/**
+ * 	Home styling
+ */
+#home_content_top{
+	width: 100%;
+	height: 50%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#left_column{
+}
+
+#middle_column{
+}
+
+#right_column{
+	
+}
+
+#home_content_bottom{
+	background-color: rgb(238,238,238);
+}

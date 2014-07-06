@@ -1,0 +1,105 @@
+#footer{
+	width: 100%;
+	display: block;
+	margin: 0px;
+	padding: 0px;
+}
+
+#top_footer{
+	background-color: rgb(51,51,51);
+	width: 100%;
+	display: inline-block;
+	margin:0 auto;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#FFF;
+	position: relative;
+	font-size:85%;
+	height: 100px;
+}
+
+#top_footer p{
+	color: rgb(102,102,102);
+	font-family: Helvetica, "Times New Roman", Arial;
+	font-weight: bold;
+	font-size: 1.5em;
+	text-align: left;
+	margin-left: 22.5%;
+}
+
+#footer_title{
+	display: inline-block;
+	font-size: 1.5em;
+	margin-top: 2%;
+	margin-left: 10%;
+	color: rgb(102,102,102);
+}
+
+#footer_menu{
+	margin: auto;
+	display: inline-block;
+	width: 49%;
+	height: 100%;
+	float: right;
+	font-size: 1.2em;
+}
+
+#footer_menu tbody{
+	
+}
+
+.top_table{
+	padding-top: 5%;
+}
+
+.bottom_table{
+	padding-top: 3%;
+}
+
+#footer_menu a{
+	color: white;
+	font-family: Helvetica, Arial, sans-serif;
+	text-decoration: none;
+}
+
+#bottom_footer{
+	width: 100%;
+	background-color: rgb(34,34,34);
+	height: 200px;
+}
+
+#bottom_footer_block{
+	width: 100%;
+	display: inline-block;
+	width:100%;
+	margin:0 auto;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#FFF;
+	position: relative;
+}
+
+#RIT_logo{
+	display: inline-block;
+	width: 50%
+	margin-top: 2%;
+}
+
+#RIT_address{
+	color: white;
+	display: inline-block;
+	font-family: Helvetica, "Times New Roman", Arial;
+	font-size: 0.8em;
+	padding-left: 3%;
+}
+
+#RIT_logo img{
+	margin-left: 15%;
+	height: 38px;
+}
+
+#copyright{
+	color: white;
+	font-family: Helvetica, "Times New Roman", Arial;
+	font-size: 0.8em;
+	display: inline-block;
+	margin-top: 3.5%;
+}

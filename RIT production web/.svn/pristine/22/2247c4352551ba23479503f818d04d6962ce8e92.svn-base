@@ -1,0 +1,44 @@
+<?php
+include('header.php');
+$PageTitle = "Contact Us";
+?>
+
+<div id="contact_content">
+	<?php
+		for ($i = 0; $i < count($contacts); $i++) {
+			//if even mod add to left side otherwise add to right side	 
+			if($i % 2 == 0){
+				print "<div id='left_contact'>
+					<div id='left_image'>
+						<img src='" . $contacts[$i]->image . "' />
+					</div>
+					<div id='left_content'>
+						<h2 style='color:rgb(247,109,44)'>" . $contacts[$i]->name . "</h2></br>
+						<p> " . $contacts[$i]->title . "</p></br>
+						<p>Phone: <b>" . $contacts[$i]->get_phone() . "</b></p></br>
+						<p>Email: <a href='mailto:" . $contacts[$i]->email . "target='_top' style ='color:rgb(247,109,44)'>" . $contacts[$i]->email . "</a></br>
+						<p id='read_more' style='color:rgb(247,109,44)'><u>Read more</u></p>                                                                                                                                                          
+					</div>	
+				</div>";
+			}
+			else{
+				print "<div id='right_contact'>
+					<div id='right_image'>
+						<img src='" . $contacts[$i]->image . "' />
+					</div>
+					<div id='right_content'>
+						<h2 style='color:rgb(247,109,44)'>" . $contacts[$i]->name . "</h2></br>
+						<p> " . $contacts[$i]->title . "</p></br>
+						<p>Phone: <b>" . $contacts[$i]->get_phone() . "</b></p></br>
+						<p>Email: <a href='mailto:" . $contacts[$i]->email . "target='_top' style ='color:rgb(247,109,44)'>" . $contacts[$i]->email . "</a></br>
+						<p id='read_more' style='color:rgb(247,109,44)'><u>Read more</u></p>                                                                                                                                                          
+					</div>	
+				</div>";
+			}
+		}
+	?>
+</div>
+
+<?php
+include('footer.php');
+?>

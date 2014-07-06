@@ -1,0 +1,14 @@
+/**
+ * Ernesto Soltero
+ * Utility Functions to support pages
+ */
+
+(function($){
+	var panel = $('.accordion > dd').hide();
+
+	$('.accordion > dt > a').click(function{
+		panel.slideUp();
+		$(this).parent().next().slideDown();
+		return false;
+	});
+})(jQuery);

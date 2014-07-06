@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+		<head>
+			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+			<link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+			<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+			<link rel="stylesheet" href="CSS/Style.css"/>
+			<!--[if lt IE 9]>
+			<script src="javascript/html5shiv.min.js"></script>
+			<![endif]-->
+			<?php require_once 'config.php'; ?>
+			<title><?= isset($PageTitle) ? $PageTitle: "Collaboratory for Resiliency and Recovery"?></title>
+		</head>
+		<body>
+			<div id="top_header">
+				<div id="RIT_block">
+					<a href="http://www.rit.edu">
+						<img src="http://www.rit.edu/fa/sfs/sites/all/themes/finweb01/images/rit-logo-orange.gif" />
+					</a>
+				</div>
+				<div id="content_right">
+					<input type="text" id="search" />
+				</div>
+			</div>
+			<div id="header_menu">
+				<?php menu(); ?>
+			</div>
+		</body>
+</html>

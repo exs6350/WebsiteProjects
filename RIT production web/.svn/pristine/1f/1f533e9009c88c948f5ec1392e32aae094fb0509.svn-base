@@ -1,0 +1,24 @@
+<?php
+	define("MAIN_TITLE", "Collaboratory for Resiliency and Recovery");
+	
+	//Menu options
+	$menu_options = array(
+		'home' => "HOME",
+		'about' => "ABOUT",
+		'cap' => "CAPABILITIES",
+		'grants' => "GRANTS & RESEARCH",
+		'contact' => "CONTACT US"
+	);
+	
+	//outputs the menu and their links
+	function menu(){
+		global $menu_options;	
+		foreach($menu_options as $item){
+					if($item === "CONTACT US"){
+						echo "<a href='contact.php' id='contact'>$item</a>";
+						continue;
+					}
+					echo "<a href='#' id=" . key($menu_options) . ">$item</a>";
+				}
+	}
+?>

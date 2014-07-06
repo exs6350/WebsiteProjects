@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+		<head>
+			<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+			<link rel="stylesheet" type="text/css" href= <?php print "http://" . $_SERVER['HTTP_HOST'] . "/ritprod/CSS/header.css"; ?> />
+			<link rel="stylesheet" type="text/css" href=<?php print "http://" . $_SERVER['HTTP_HOST'] . "/ritprod/CSS/Style.css"; ?> />
+			<link rel="stylesheet" type="text/css" href=<?php print "http://" . $_SERVER['HTTP_HOST'] . "/ritprod/CSS/footer.css"; ?> />
+			<!--[if lt IE 9]>
+			<script src="javascript/html5shiv.min.js"></script>
+			<![endif]-->
+			<?php require_once 'config.php'; ?>
+			<title><?= isset($PageTitle) ? $PageTitle: MAIN_TITLE ?></title>
+		</head>
+		<body>
+			<div id="header_wrapper">
+				<div id="RIT_block">
+					<div id="top_header_content_left">
+						<span>
+							<h1>R&bull;I&bull;T</h1>
+							<p>Rochester Institute of Technology</p>
+						</span>
+					</div>
+					<div id="top_header_content_right">
+						<h4>Directories</h4>
+						<input type="text" placeholder="Search RIT"/>
+					</div>
+				</div>
+				<div id="second_row_header">
+					<h1><?php print MAIN_TITLE; ?></h1>
+				</div>
+				<div id="last_row_header">
+					<div id="img_wrapper">
+						<img src=<?php print IMAGES . "thumb1.gif"; ?> />
+						<img src=<?php print IMAGES . "thumb2.gif"; ?> />
+						<img src=<?php print IMAGES . "thumb3.gif"; ?> />
+						<img src=<?php print IMAGES . "thumb4.gif"; ?> />
+						<img src=<?php print IMAGES . "thumb5.gif"; ?> />
+						<img src=<?php print IMAGES . "thumb6.gif"; ?> />
+					</div>
+				</div>
+				<div id="header_menu">
+					<?php menu(); ?>
+				</div>
+			</div>
+			
+		</body>
+</html>

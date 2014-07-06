@@ -1,0 +1,26 @@
+@CHARSET "ISO-8859-1";
+
+
+/**
+ * 	Footer styling
+ */
+.bottom_footer{
+	width: 100%;
+	color: #202020;
+}
+
+.RIT_logo{
+	align: left;	
+}
+
+.copyright{
+	align: right;
+}
+
+.footer_menu{
+	align: right;
+}
+
+.top_footer{
+	color: #C0C0C0;
+}

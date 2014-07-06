@@ -1,0 +1,306 @@
+/**
+ * 	Header - Orange block
+ */
+#header_wrapper{
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	overflow: hidden;
+	display: block;
+}
+
+#RIT_block{
+	width:100%;
+	max-width:960px;
+	margin:0 auto;
+	height:51px;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#FFF;
+	background:#F36E21;
+	position: relative;
+	font-size:85%;
+}
+
+#RIT_background{
+	background-color: rgb(247,109,44);
+	width: 100%;
+	overflow: hidden;
+	height: 60px;
+}
+
+#top_header_content_left{
+	width: 49%;
+	margin-left: 10%;
+	display: inline-block;
+}
+
+#top_header_content_left #RIT_name {
+	padding:0;
+	margin:0;
+	left:0;
+	top:0;
+	display:block;
+	position:absolute;
+	width:375px;
+	height:51px;
+	background-size:375px 51px;
+	background: url(/ritprod/Images/RIT_header.png) no-repeat;
+	border:none;
+	cursor:pointer;
+}
+
+#top_header_content_right{
+	height:33px;
+	display: inline-block;
+	float: right;
+	margin-top: 2%;
+}
+
+#top_header_content_right a:link,#top_header_content_right a:visited, #top_header_content_right a:active {
+	color:white;
+	text-decoration: none;
+	
+}
+
+#top_header_content_right button
+{
+	background: url(/ritprod/Images/search_icon.gif) no-repeat;
+	width: 16px;
+	height: 13px;
+	cursor: pointer;
+	border: none;
+}
+
+#top_header_content_right a:hover{
+	color:white;
+	text-decoration: underline;
+}
+#top_header_content_right #RIT_directories{
+	display: inline-block;
+	float: left;
+	vertical-align: baseline;
+	margin-top: 1%;
+}
+
+#top_header_content_right #RIT_search{
+	margin-left: 30px;
+	border: 1px solid #F36E21;
+    	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+    	background-color: white;
+    	display: inline-block;
+    	vertical-align: baseline;
+    	padding-left: 10px;
+}
+
+#top_header_content_right #RIT_search_form{
+	border: none;
+}
+
+#top_header_content_right input{
+	border: none;
+	width: 135px;
+	float: left;
+}
+#top_header_content_right input:focus{
+	outline: none;
+}
+
+#second_row_background{
+	width: 100%;
+	background: url(../Images/hatch.gif) no-repeat;
+	background-color: #a0a0a0;
+	background-position: center center;
+	height: 130px;
+	padding-top: 30px;
+	box-shadow: inset 0px 0px 10px #000000;
+	background-size: 100% 100%;
+}
+
+#second_row_block{
+	width:100%;
+	max-width:960px;
+	margin:0 auto;
+	height:55px;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#FFF;
+	position: relative;
+}
+
+#rectangle{
+	background-color: rgb(238,238,238);
+	height:auto;
+	width:auto;
+	position: relative;
+	float:left;
+	bottom: 15%;
+	z-index: 1;
+	box-shadow: 10px 10px 20px rgba(14,14,14,0.4);
+}
+
+#rectangle img
+{
+	height:auto;
+	width:auto;
+	position:relative;
+	z-index:2;
+}
+
+#second_row_header{
+	height:auto;
+	width:auto;
+	font-family:Helvetica;
+	float: right;
+	font-size: 2.05em;
+	color:#FFF;
+	position:relative;
+	z-index:3;
+	text-shadow: 0px 0px 14px black;
+	margin-top: 3%;	
+}
+
+#third_row_background{
+	width: 100%;
+	margin:0 auto;
+	color:#FFF;
+	background-color: #e7e7e7;
+	height: 300px;
+	padding: 0;
+	position: relative;
+}
+
+#third_row_block
+{
+	width:100%;
+	max-width:960px;
+	margin:0 auto;
+	height:51px;
+	font-family:Helvetica, Arial, sans-serif;
+	color:#FFF;
+	position: relative;
+	font-size:85%;
+}
+#img_wrapper{
+	width:100%;
+	
+	font-family:Helvetica, Arial, sans-serif;
+	
+	position: relative;
+
+	float: right;
+	
+}
+#img_wrapper img{
+	margin-top: 30px;
+}
+#img_wrapper img:not(:first-child){
+
+	margin-left: 5.5px;
+}
+
+
+#header_menu{
+	width: 100%;
+	margin-left: 36%;
+	background-color:black;
+	height: 65px;
+	right: 0;
+	top: 0;
+	position: relative;
+}
+#menu_contents
+{
+	margin-top:0;
+	margin-left: 0;
+}
+
+#menu_contents .menu
+{
+	vertical-align: middle;
+	display: inline-block;
+}
+
+#menu_contents .menu span:not(.item)
+{
+	padding: 0px 15px 0px 15px;
+}
+
+#menu_contents .menu:not(.menu.dropdown)
+{
+	cursor: pointer;
+}
+
+#menu_contents a, #menu_contents span {
+	color: white;
+	font-weight: bold;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	text-decoration: none;
+	line-height: 55px;	
+}
+#menu_contents .item{
+	line-height: 20px;
+	display: inline-block;
+	
+}
+#menu_contents .active.item{
+	border-bottom: 5px solid white;
+}
+#menu_contents .active.item.hold{
+	border:0;
+}
+
+#menu_contents .menu:hover {
+	background-color: #F36E21;
+}
+
+#menu_contents .menu:hover .item{
+	border-bottom: 5px solid white;
+}
+#menu_contents .menu
+{
+	cursor: pointer;
+}
+#menu_contents .menu .dropdown{
+	color: rgb(247,109,44);
+	position: absolute;
+	visibility: hidden;
+	display: block;
+	background-color: #F36E21;
+	z-index: 100;
+	
+	list-style: none;
+	cursor: auto;
+}
+
+#menu_contents .menu .dropdown .dropitem a
+{
+	line-height: 40px;
+	vertical-align: middle;
+}
+
+#menu_contents .menu .dropdown .dropitem:not(:last-child){
+	display: block;
+	margin-top: 0;
+	border-bottom: 1px solid white;
+	padding: 0;
+	margin-left: 15px;
+	line-height: 10px;
+	vertical-align: middle;
+	height: 40px;
+}
+
+#menu_contents .menu:hover .dropdown{
+	visibility: visible;
+	
+}
+
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+    padding: 0;
+}

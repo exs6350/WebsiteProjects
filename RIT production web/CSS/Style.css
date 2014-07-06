@@ -1,0 +1,171 @@
+body{
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+	width: 100%;
+}
+
+/**
+ * 	Home styling
+ */
+#home_content_top{
+	width:100%;
+	max-width: 1200px;
+	margin:0 auto;
+	height:450px;
+	font-family:Helvetica, Arial, sans-serif;
+	position: relative;
+}
+
+#left_column{
+	display: inline-block;
+	line-height: 1.5em;
+	float: left;
+	font-size: .9em;
+	width: 35%;
+	height: 80%;
+	margin-top: 2%;
+	margin-right: 1%;
+	overflow: hidden;
+	text-align: center;
+}
+
+#left_column h3{
+	color: rgb(247,109,44);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.5em;
+}
+
+#left_column p{
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#middle_column{
+	display: inline-block;
+	line-height: 1.5em;
+	float: left;
+	font-size: .9em;
+	width: 35%;
+	height: 80%;
+	margin-top: 7%;
+	margin-right: 1%;
+	overflow: hidden;
+	text-align: center;
+}
+
+#right_column{
+	display: inline-block;
+	font-size: .9em;
+	width: 27%;
+	float: right;
+	background-color: rgb(243,243,243);
+	height: 60%;
+	margin-top: 2%;
+	overflow: hidden;
+	border: medium solid;
+	border-width: 2px;
+	border-color: rgb(170,170,170);
+	margin-top: 5%;
+}
+
+#right_column h3{
+	color: rgb(247,109,44);
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 1.3em;
+	padding-left: 4%;
+}
+
+#right_column li{
+	
+	position: relative;
+	margin-bottom: 20px;
+}
+#right_column img{
+	display: inline-block;
+	vertical-align: baseline;
+}
+#home_content_bottom{
+	
+	background-color: rgb(238,238,238);
+	width: 100%;
+}
+#home_content_bottom_block
+{
+	width:100%;
+	margin:0 auto;
+	position: relative;
+}
+#home_content_bottom img{
+	width: 32%;
+}
+
+/**
+ * 	contact us styling
+ */
+
+#contact_content{
+	width:100%;
+	max-width: 1200px;
+	margin:0 auto;
+	font-family:Helvetica, Arial, sans-serif;
+	position: relative;
+	font-size:85%;
+}
+
+#left_contact{
+	display: block;
+	width: 48%;
+	height: 100%;
+	float: left;
+	margin-top: 2%;
+}
+
+#left_content{
+	float: right;
+	display: inline-block;
+}
+
+#left_content p{
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#left_image{
+	display: inline;
+}
+
+#left_image img{
+	height: 70%;
+	width: 30%;
+
+}
+
+#right_image{
+	display: inline;
+}
+
+#right_image img{
+	height: 70%;
+	width: 30%;
+	margin-left: 15%;
+}
+
+#right_content{
+	float: right;
+	display: inline-block;
+}
+
+#right_content p{
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+#right_contact{
+	display: block;
+	width: 48%;
+	height: 100%;
+	float: right;
+	margin-top: 2%;
+}
+
+#accordion_1_response, #accordion_2_response{
+	display: none;	
+}

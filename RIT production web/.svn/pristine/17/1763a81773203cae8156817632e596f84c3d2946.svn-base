@@ -1,0 +1,98 @@
+/**
+ * 	Header - Orange block
+ */
+#header_wrapper{
+	height: 25%;
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+#RIT_block{
+	background-color: rgb(247,109,44);
+	width: 100%;
+	overflow: hidden;
+}
+
+#top_header_content_left{
+	width: 49%;
+	display: inline-block;
+}
+
+#top_header_content_right{
+	width: 50%;
+	display: inline-block;
+}
+
+#top_header_content_left h1{
+	color: white;
+	font-family: "Times New Roman", Helvetica, Arial;
+	font-weight: bold;
+	text-align: left;
+	margin-left: 25%;
+	display: inline;
+}
+
+#top_header_content_left p{
+	color: white;
+	font-family: "Times New Roman", Helvetica, Arial;
+	font-size: 1em;
+	display: inline;
+}
+
+#top_header_content_right h4{
+	color: white;
+	display: inline;
+	font-family: "Times New Roman", Helvetica, Arial;
+	font-size: 1em;
+	margin-left: 40%
+}
+
+#top_header_content_right input{
+	float: right;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+}
+
+#second_row_header{
+	width: 100%;
+	background-color: rgb(51,51,51);
+	display: inline-block;
+	height: 100px;
+}
+
+#second_row_header h1{
+	color: white;
+	font-family: Helvetica, "Times New Roman", Arial;
+	text-align: center;
+}
+
+#last_row_header{
+	width: 100%;
+	background-color: rgb(238,238,238);
+}
+
+#img_wrapper{
+	width: 100%;
+	display: -moz-box;
+	-moz-box-pack: center;
+	-moz-box-align: center;
+	display: -webkit-box;
+	-webkit-box-pack: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	display: box;
+	box-pack: center;
+	box-align: center;
+}
+
+#img_wrapper img{
+	margin-right: 3%;
+	margin-left: 3%;
+}
+
+#last_row_header img{
+	margin-left: 3%;
+	margin-right: 3%;
+}

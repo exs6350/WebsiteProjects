@@ -1,0 +1,41 @@
+<?php 
+	$PageTitle = "Home";
+	include('header.php');
+?>
+	<div id="home_content_top">
+		<div id="left_column">
+			<h3>ABOUT THE COLLABORATORY</h3>
+			<p>The goal of the Rochester Institute of Technology&apos;s (RIT) interdisciplinary 
+			Collaboratory for Resiliency and Response (CRR) is to provide integrated information and decision support capabilities to the private, public, 
+			and government entities, with the ultimate goal encompassing all communities worldwide. Through integrating resiliency principles, decision support 
+			technology, and incident response capabilities, the CRR will increase a community&apos;s ability to prepare, respond, and recover from disasters. 
+			The mission is to provide communities<p> 
+		</div>
+		
+		<div id="middle_column">
+			<p>
+				with the highest level of all-hazards information analysis, fusion, and response support to maximize the resiliency of communities against catastrophic 
+				events, disasters, and other emergencies. The Collaboratory provides an administrative structure where RIT faculty and students can pursue scholarship 
+				and leverage educational programs that focus on the resilient community, from both an operational and human need standpoint.
+			</p>
+		</div>
+		
+		<div id="right_column">
+			<h3>CHILDCARE EMERGENCY PLANNING TOOLS</h3>
+			<li>
+				<ul>Childcare Facility Emergency Plan Template</ul><img src=<?php print IMAGES . "pdf.gif"; ?> />
+				<ul>Links for Information</ul>
+				<ul>Childcare Project Survey Results</ul>
+			</li>
+		</div>
+	</div>
+	
+	<div id="home_content_bottom">
+		<img src=<?php print IMAGES . "venndiagram.gif"; ?> />
+		<img src=<?php print IMAGES . "continuum.gif"; ?> />
+		<img src=<?php print IMAGES . "interconnected.gif"; ?> style="padding-bottom: 3.4%;"/>
+	</div>
+	
+<?php
+	include('footer.php');
+?>

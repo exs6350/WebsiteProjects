@@ -1,0 +1,41 @@
+<?php
+	$CopyRight = "Copyright &copy Rochester Institute of Technology. All Rights Reserved. | Disclaimer | Copyright Infringement";
+	require_once 'config.php';
+?>
+<div id="footer">
+	<div id="top_footer">
+		<div id="footer_title">
+			<p>
+				<?php 
+					echo MAIN_TITLE;
+				?>
+			</p>
+		</div>
+		<div id="footer_menu">
+			<div id="footer_col_1">
+				
+			</div>
+			<div id="footer_col_2">
+				
+			</div>
+			<div id="footer_menu_3">
+				
+			</div>
+		</div>
+	</div>
+	<div id="bottom_footer">
+		<div id="RIT_logo">
+			<h3>R&bull;I&bull;T</h3>
+			<p>
+				Rochester Institute of Technology <br />
+				1 Lomb Memorial Drive,<br />
+				Rochester, NY 14623
+			</p>
+		</div>
+		<div id="copyright">
+			<p>
+				<?php echo $CopyRight; ?>
+			</p>
+		</div>
+	</div>
+</div>
