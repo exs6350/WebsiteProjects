@@ -48,31 +48,25 @@ a:hover{
 
 /*Body*/
 
-#wrapper{
+.wrapper{
     min-height: 100%;
     position: relative;
 }
 
-#about-me{
-    margin: auto auto;
-    color: #7BE08D;
-    max-width: 1000px;
+#Exercise{
+    padding-top: 50px;
 }
 
-#photo img{
-    display: block;
-    margin: auto auto;
-    height: 300px;
-    width: 300px;
+#Exercise ul li{
+    list-style-type: none;
 }
 
-h3{
-    text-align: center;
-    color: #7BE08D;
+#Exercise a{
+    text-decoration: none;
 }
 
-#photo{
-    margin: 50px auto 0 auto;
+#Exercise a:hover{
+    color: red;
 }
 
 /*Footer*/

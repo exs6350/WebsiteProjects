@@ -48,7 +48,7 @@ a:hover{
 
 /*Body*/
 
-#wrapper{
+.wrapper{
     min-height: 100%;
     position: relative;
 }
