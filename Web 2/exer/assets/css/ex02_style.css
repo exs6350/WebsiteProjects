@@ -101,6 +101,7 @@ a:hover{
     display: inline-block;
     font-size: 75px;
     margin-left: 5%;
+    text-shadow: 2px 2px 2px yellow;
 }
 
 .square-image:hover{
