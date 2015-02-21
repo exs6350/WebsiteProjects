@@ -10,10 +10,22 @@ namespace Foodie.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "The home page for foodie website";
+            ViewBag.Message = "The page for Foodie's to congregate.";
 
             return View();
         }
 
+        public ActionResult About()
+        {
+            ViewBag.Message = "Meet the Foodie creator's";
+
+                return View();
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
     }
 }

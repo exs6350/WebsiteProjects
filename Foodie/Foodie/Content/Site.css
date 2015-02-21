@@ -6,7 +6,6 @@
 
 body {
     background-color: #fff;
-    border-top: solid 10px #000;
     color: #333;
     font-size: .85em;
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
@@ -95,7 +94,6 @@ h5, h6 {
 ----------------------------------------------------------*/
 .content-wrapper {
     margin: 0 auto;
-    max-width: 960px;
 }
 
 #body {
@@ -105,13 +103,8 @@ h5, h6 {
 }
 
     .main-content {
-        background: url("../Images/accent.png") no-repeat;
         padding-left: 10px;
         padding-top: 30px;
-    }
-
-    .featured + .main-content {
-        background: url("../Images/heroAccent.png") no-repeat;
     }
 
 header .content-wrapper {
@@ -137,7 +130,7 @@ footer {
 
 .site-title a, .site-title a:hover, .site-title a:active {
     background: none;
-    color: #c8c8c8;
+    color: #FF4949;
     outline: none;
     text-decoration: none;
 }
@@ -195,7 +188,7 @@ ul#menu {
 
         ul#menu li a {
             background: none;
-            color: #999;
+            color: #FF4949;
             text-decoration: none;
         }
 
@@ -204,6 +197,11 @@ ul#menu {
             text-decoration: none;
         }
 
+.header-nav-login{
+    margin: 0 auto;
+    display: inline-block;
+
+}
 
 /* page elements
 ----------------------------------------------------------*/
@@ -213,12 +211,7 @@ ul#menu {
 }
 
     .featured .content-wrapper {
-        background-color: #7ac0da;
-        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
-        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
-        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-color: #FF1E1E;
         color: #3e5667;
         padding: 20px 40px 30px 40px;
     }
@@ -234,6 +227,7 @@ ul#menu {
 /* page titles */
 hgroup.title {
     margin-bottom: 10px;
+    text-align: center;
 }
 
 hgroup.title h1, hgroup.title h2 {
@@ -716,6 +710,11 @@ tr.pager td {
     /* forms */
     input {
         width: 90%;
+    }
+
+    .search-engine {
+        border-radius: 5px;
+        display: block;
     }
 
     /* login page */
