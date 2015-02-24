@@ -1,0 +1,74 @@
+<!--Ernesto Soltero
+Exercise 3-->
+<!DOCTYPE>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercise 3</title>
+    </head>
+    
+    <body>
+        <div class="wrapper">
+            <header>
+                <h1>Exercise 4</h1>
+            </header>
+
+            <div id="menu">    
+                <div class="logo">
+                    <img src="assets/images/person_logo.jpg">
+                    <p>Small Town</p>
+                </div>
+                
+                <div class="menu-links">
+                        <nav>
+                            <ul>
+                                <li><a href="#"></a>Home</li> |
+                                <li><a href="#"></a>Activities</li> |
+                                <li><a href="#"></a>Food</li> |
+                                <li><a href="#"></a>Rest</li> |
+                                <li><a href="#"></a>People</li> |
+                                <li><a href="#"></a>Feedback</li>
+                            </ul>
+                        </nav>
+                </div>
+            </div>
+            
+            <form>
+                <h2>Please tell us about your visit:</h2>
+                <hr>
+
+                <div class="group">
+                    <p>How many in your group?</p>
+                    <input type="number">
+                </div>
+                    
+                <div class="visit">
+                    <p>When did you Visit?</p>
+                    <input type="date">   
+                </div>
+                <!-- Fieldset for radio inputs -->
+                <div class="field">
+                    <fieldset>
+                        <legend>Favorite Place</legend>
+                        <input type="radio"> <p>Base ball Field</p><br>
+                        <input type="radio"> <p>Museum</p><br>
+                        <input type="radio"> <p>Luigis Italian Restarant</p><br>
+                        <input type="radio"> <p>Mom's Hotel</p><br>
+                        <input type="radio"> <p>The Youth Hostel</p><br>
+                    </fieldset>
+                </div>
+                <!-- bottom rating -->
+                <div class="rating">
+                    <p>Overall Rate your visit to our small town:</p>
+                    <div id="slider">
+                        <div id="range-pair">
+                            <p>0</p><input type="range" min="0" max="10"><p>10</p>
+                        </div>
+                    </div>    
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+    </body>
+    <link rel="stylesheet" href="assets/css/ex04_style.css" /> 
+</html>
