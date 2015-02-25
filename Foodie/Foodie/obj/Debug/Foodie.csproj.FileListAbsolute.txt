@@ -11,7 +11,6 @@ C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\EntityFramew
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Data.Edm.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Data.OData.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Web.Infrastructure.dll
-C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Newtonsoft.Json.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\System.Spatial.dll
@@ -78,7 +77,6 @@ C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.pdb
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Foodie.dll.config
-C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Mono.Security.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Npgsql.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Npgsql.xml
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\de\Npgsql.resources.dll
@@ -87,3 +85,8 @@ C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\fi\Npgsql.re
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\fr\Npgsql.resources.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\ja\Npgsql.resources.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\zh-CN\Npgsql.resources.dll
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\EntityFramework.SqlServer.dll
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Npgsql.EntityFramework.dll
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\EntityFramework.SqlServer.xml
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Npgsql.EntityFramework.xml
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Microsoft.Web.Helpers.dll

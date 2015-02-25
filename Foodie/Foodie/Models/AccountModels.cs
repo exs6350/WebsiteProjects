@@ -11,7 +11,7 @@ namespace Foodie.Models
     public class UsersContext : DbContext
     {
         public UsersContext()
-            : base("DefaultConnection")
+            : base("FoodieDatabase")
         {
         }
 
@@ -81,6 +81,11 @@ namespace Foodie.Models
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
+
+        [Required]
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
