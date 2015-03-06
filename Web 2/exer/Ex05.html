@@ -1,0 +1,86 @@
+<!--Ernesto Soltero
+March 2 2015
+ISTE240 Exercise 5 - Javascript Part 1-->
+<!DOCTYPE>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercise 3</title>
+    </head>
+    
+    
+    
+    <body onload="init();">
+        <div class="wrapper">
+            <header>
+                <h1>Exercise 5</h1>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="http://github.com/zxzero00" target="_blank">My Github</a></li>
+                    <li><a href="../myproj">ISTE 240 Group Project</a></li>
+                    <li><a href="Exercise.html">Exercises</a></li>
+                </ul>
+            </nav>
+            
+            <div>
+                <h4>JavaScript Exercise 5a </h4> 
+                <p id="text">This style of this paragraph will change when you click the button below.</p>
+            </div>
+            <div>
+                <button id="styleMe"
+                onclick="jsStyle()">Change Style</button>
+            </div>
+            
+            <hr>
+            
+            <h4>JavaScript Exercise 5b </h4>
+            <form id="regForm">
+                <P>First name:</P> <input type="text" id="fname" value="Boo"><br>
+                <p>Last name:</p> <input type="text" id="lname" value="Radley"><br>
+                <input type="button" onclick="getFormValues();" value="Submit">
+            </form>
+            
+            <hr>
+            
+            <h4>JavaScript Exercise 5c</h4> 
+            <form>
+                <select id="mySelect">
+                <option>Red</option>
+                <option>Green</option>
+                <option>Blue</option>
+                <option>Yellow</option>
+                <option>Orange</option>
+                <option>Purple</option>
+                </select>
+                <input id="drop-button" type="button" onclick="getOptions()" value="Display the Options">
+            </form>
+            
+            <hr>
+            
+            <div>
+                <h4>JavaScript Exercise 5d </h4> 
+            </div>
+            <div>
+                <p id='rb'>This sentence will turn red when you mouseover it.</p>
+            </div>
+            
+            <hr>
+            
+            <div>
+                <h4>JavaScript Exercise 5d </h4> 
+            </div>
+            <form>
+                <input type='text' id='firstoperand' placeholder='First Operand'/><br>
+                <input type='text' id='secondoperand' placeholder='Second Operand'/><br>
+                <input type='button' onClick='divide()' value='Divide' />
+                <input type='button' onClick='multiply()' value='Multiply' />
+                <p>The answer: <span id='result'></span></p>
+            </form>
+        </div>
+    </body>
+    <link rel="stylesheet" href="assets/css/ex05.css" /> 
+    <script src="assets/js/EX05.js"></script>
+</html>

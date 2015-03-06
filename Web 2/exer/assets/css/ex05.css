@@ -1,0 +1,99 @@
+/*General css
+Ernesto Soltero
+*/
+body{
+    background-color: #2B823A;
+    font-family: Helvetica, Arial, Times New Roman;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+/*Header css*/
+h1{
+    text-align: center;
+    color: #7BE08D;
+}
+
+/*Navigation*/
+nav{
+    width: 100%;
+    height: 40px;
+    text-align: center;
+    text-shadow: 3px 2px 3px #333333;
+    margin: 0 auto;
+}
+
+nav ul{
+    height: auto;
+    padding: 8px 0px;
+    margin: 0;
+    text-align: center;
+}
+
+nav ul li{
+    display: inline;
+    list-style: none;
+    padding: 30px;
+}
+
+a{
+    text-decoration: none;
+    padding: 8px;
+    color: #7BE08D;
+}
+
+a:hover{
+    color: inherit;
+    background-color: #FFF;
+}
+
+/*Body*/
+
+.wrapper{
+    min-height: 100%;
+    position: relative;
+}
+
+/*Center all the elements by applying a margin rule and changing the display to block*/
+div{
+    margin: 0 auto;
+    display: block;
+}
+
+p{
+    text-align: center;
+}
+    
+form{
+    margin: 0 auto;
+    display: block;
+}
+
+input{
+    margin: 0 auto;
+    display: block;
+}
+
+button{
+    margin: 0 auto;
+    display: block;
+}
+
+select{
+    margin: 0 auto;
+    display: block;
+}
+
+h4{
+    text-align: center;
+}
+
+#myselect{
+    display: inline-block;
+    margin-left: 40%;
+}
+
+#drop-button{
+    display: inline-block;
+}
