@@ -1,3 +1,0 @@
-Foodie/Web.Config
-Foodie/Web.Release.Config
-Foodie/Web.Debug.Config
