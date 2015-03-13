@@ -1,0 +1,85 @@
+<!--Ernesto Soltero
+March 9 2015
+ISTE240 Exercise 6 -->
+<!DOCTYPE>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Exercise 3</title>
+    </head>
+    
+    
+    
+    <body onload="init()">
+        <div class="wrapper">
+            <header>
+                <h1>Exercise 6</h1>
+            </header>
+
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Home</a></li>
+                    <li><a href="http://github.com/zxzero00" target="_blank">My Github</a></li>
+                    <li><a href="../myproj/Project.html">ISTE 240 Group Project</a></li>
+                    <li><a href="Exercise.html">Exercises</a></li>
+                </ul>
+            </nav>
+            
+            <h4>JavaScript Exercise 6a </h4> 
+          
+            <p id="text">I Move</p>
+           <br>
+           <br>
+            <button id="styleMe"
+            onclick="jsStyle()">Move the Text</button>
+            
+            <hr>
+            
+            <h4>JavaScript Exercise 6b </h4>
+            <form id="regForm">
+                <input type="text" id="fname" placeholder="Boo" /> <br>
+                <input type="text" id="lname" placeholder="Radley" /><br>
+                <input type="checkbox" id="dog">I have a dog. (Check if you do)<br>
+                <input type="text" id="major" placeholder="major"/><br>
+                <input type="button" onclick="howmany();" value="Count of inputs">
+            </form>
+            
+            <hr>
+            
+            <div id="change-div">
+                <h4>JavaScript Exercise 6c</h4> 
+                <form>
+                    <select id="mySelect">
+                    <option value="red">Red</option>
+                    <option value="green">Green</option>
+                    <option value="blue">Blue</option>
+                    <option value="yellow">Yellow</option>
+                    <option value="orange">Orange</option>
+                    <option value="purple">Purple</option>
+                    </select>
+                    <input id="drop-button" type="button" onclick="colorchanger()" value="Change the background color">
+                </form>
+            </div>
+            
+            <hr>
+            
+            
+            <h4>JavaScript Exercise 6d </h4> 
+           
+            
+            <p id='rb'>This sentence will turn to the color your choose in the dropdown when you mouseover it.</p>
+        
+            <hr>
+            
+            
+            <h4>JavaScript Exercise 6e </h4> 
+           
+            <div id="inner">
+                <p>Change the inner text of this sentence</p>
+            </div>
+            <input type="button" onclick="changeTextNode();" value="Change the inner html"/>
+        </div>
+    </body>
+    <link rel="stylesheet" href="assets/css/ex06.css" /> 
+    <script src="assets/js/EX06.js"></script>
+</html>

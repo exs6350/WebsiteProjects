@@ -1,0 +1,18 @@
+/*Header styles*/
+nav{
+    
+}
+
+/*Background styles*/
+container-fluid{
+    background: url("http://wallpaperfx.com/view_wallpaper/the-western-divide-1920x1080-wallpaper-3491.htm") no-repeat center center fixed;
+    background-size: cover;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+
+.jumbotron{
+    background-color: #5cb85c;
+}
+/*Footer styles*/
