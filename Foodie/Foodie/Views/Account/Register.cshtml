@@ -28,8 +28,30 @@
                 @Html.PasswordFor(m => m.ConfirmPassword)
             </li>
             <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
                 @Html.LabelFor(m => m.SecurityQuestion)
-                @Html.DropDownListFor(m => SecurityQuestion)
+                @Html.DropDownListFor(m => m.SecurityQuestion, 
+                                        new SelectList(new List<Object>{
+                                            new { value="What is your hometown?", text="What is your hometown?"},
+                                            new { value="What is the name of your favorite pet?", text="What is the name of your favorite pet?"},
+                                            new { value="What city where you born in?", text="What city where you born in?"},
+                                            new { value="What is your favorite color?", text="What is your favorite color?"}
+                                        },
+                                        "value",
+                                        "text",
+                                        2))
+                                            
+            </li>
+            <li>
+                @Html.LabelFor(m => m.SecurityAnswer)
+                @Html.TextBoxFor(m => m.SecurityAnswer)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ProfileType)
+                @Html.EnumDropDownListFor(m => m.ProfileType)
             </li>
         </ol>
         <input type="submit" value="Register" />

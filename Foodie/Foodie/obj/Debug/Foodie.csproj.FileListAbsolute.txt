@@ -1,3 +1,4 @@
+C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.csprojResolveAssemblyReference.cache
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Foodie.dll.config
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Foodie.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\Foodie.pdb
@@ -92,4 +93,3 @@ C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\zh-Hans\Syst
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.dll
 C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.pdb
-C:\Users\Ernesto\Documents\GitHub\WebsiteProjects\Foodie\Foodie\obj\Debug\Foodie.csprojResolveAssemblyReference.cache
