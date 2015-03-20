@@ -1,18 +1,50 @@
-/*Header styles*/
-nav{
-    
+html, body{
+    height: 100%;
 }
 
-/*Background styles*/
-container-fluid{
-    background: url("http://wallpaperfx.com/view_wallpaper/the-western-divide-1920x1080-wallpaper-3491.htm") no-repeat center center fixed;
-    background-size: cover;
-    -moz-background-size: cover;
-    -webkit-background-size: cover;
-    -o-background-size: cover;
+.container-fluid{
+    min-height: 100%;
+    margin-bottom: -142px;
 }
 
-.jumbotron{
-    background-color: #5cb85c;
+.container-fluid:after{
+    content: "";
+    display: block;
 }
-/*Footer styles*/
+
+.footer{
+    height: 142px;
+}
+
+ul{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.gallery li{
+    margin-bottom: 25px;
+    list-style: none;
+}
+
+.gallery img{
+    cursor: pointer;
+    width: 300px;
+    height: 250px;
+}
+
+.modal-dialog{
+    width: 50%;
+    height: 50%;
+    padding: 0;
+}
+
+.modal-img{
+    height: 50%;
+    width: 50%;
+}
+
+.modal-content{
+    height: 60%;
+}
+
