@@ -45,13 +45,28 @@ namespace Foodie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
-            {
-                return RedirectToLocal(returnUrl);
+            try{
+                if (ModelState.IsValid && Login(model.UserName, model.Password))
+                {
+                    User user = GetUser(model.UserName, true);
+                    Session["Username"] = user.Username;
+                    Session["Email"] = user.Email;
+                    Session["pId"] = user.pId;
+                    Session["PasswordQuestion"] = user.PasswordQuestion;
+                    Session["Approved"] = user.IsApproved;
+                    Session["LockedOut"] = user.IsLockedOut;
+                    Session["LastLoginDate"] = user.LastLoginDate;
+                    Session["LastActivityDate"] = user.LastActivityDate;
+                    Session["LastPasswordChangedDate"] = user.LastPasswordChangedDate;
+                    Session["LastLockedOutDate"] = user.LastLockedOutDate;
+                    Session["ProfileType"] = user.ProfileType;
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "The user name or password provided is incorrect.");
+            catch(MembershipCreateUserException e){
+                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+            }
             return View(model);
         }
 
@@ -62,8 +77,7 @@ namespace Foodie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            WebSecurity.Logout();
-
+            Session.Abandon();
             return RedirectToAction("Index", "Home");
         }
 
@@ -90,8 +104,7 @@ namespace Foodie.Controllers
                 try
                 {
                     User newUser = CreateUser(model);
-                    Login(model.UserName, model.Password);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("RegisterSuccess", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {
@@ -197,36 +210,44 @@ namespace Foodie.Controllers
         }
 
         /// <summary>
-        /// Populates a user model based on the data given from the database
+        /// Checks to see if the email used to create an account is unique
         /// </summary>
-        /// <param name="reader"></param>
+        /// <param name="email"></param>
         /// <returns></returns>
-        private User GetUserFromReader(NpgsqlDataReader reader)
+        private Boolean EmailUnique(String email)
         {
-            User user = new User();
-            user.pId = Guid.Parse(reader.GetValue(0).ToString());
-            user.Username = reader.GetString(1);
-            user.Email = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
-            user.PasswordQuestion = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
-            user.IsApproved = reader.IsDBNull(4) ? false : reader.GetBoolean(4);
-            user.IsLockedOut = reader.IsDBNull(5) ? false : reader.GetBoolean(5);
-            user.CreationDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
-            user.LastLoginDate = reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7);
-            user.LastActivityDate = reader.IsDBNull(8) ? DateTime.MinValue : reader.GetDateTime(8);
-            user.LastPasswordChangedDate = reader.IsDBNull(9) ? DateTime.MinValue : reader.GetDateTime(9);
-            user.LastLockedOutDate = reader.IsDBNull(10) ? DateTime.MinValue : reader.GetDateTime(10);
-            return user;
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "SELECT \"Email\" FROM \"{0}\" WHERE \"Email\" = @Email", userTable);
+
+                    command.Parameters.Add("@Email", NpgsqlDbType.Varchar, 255).Value = email;
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+
+                        using(NpgsqlDataReader reader = command.ExecuteReader()){
+                            if(reader.HasRows){
+                                return false;
+                            }
+                            return true;
+                        }
+                    }
+                    catch(NpgsqlException e){
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally{
+                        if(conn != null){
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+            return false;
         }
 
-        private Boolean EmailUnique(RegisterModel model)
-        {
-            return true;
-        }
-
-        private Boolean UsernameUnique(RegisterModel model)
-        {
-            return true;
-        }
         #endregion
 
         #region Account methods
@@ -299,16 +320,12 @@ namespace Foodie.Controllers
         private User CreateUser(RegisterModel model)
         {
             Guid providerUserKey = model.pId;
-            //lets do some simple username and email checking
-            if (string.IsNullOrEmpty(model.Email) || !(EmailUnique(model)))
+            //lets do some simple email checking
+            if (string.IsNullOrEmpty(model.Email) || !(EmailUnique(model.Email)))
             {
-                return null;
+                status = MembershipCreateStatus.DuplicateEmail;
+                throw new MembershipCreateUserException();
             }
-            if (string.IsNullOrEmpty(model.UserName) || !(UsernameUnique(model)))
-            {
-                return null;
-            }
-
             //if user doesn't exist already
             if (GetUser(model.UserName, false) == null)
             {
@@ -323,7 +340,7 @@ namespace Foodie.Controllers
                 {
                     using (NpgsqlCommand command = conn.CreateCommand())
                     {
-                        command.CommandText = string.Format(CultureInfo.InvariantCulture, "INSERT INTO \"{0}\" (\"pId\", \"Username\", \"Password\", \"Email\", \"PasswordQuestion\", \"PasswordAnswer\", \"IsApproved\", \"CreationDate\", \"LastPasswordChangedDate\", \"LastActivityDate\", \"IsLockedOut\", \"LastLockedOutDate\", \"FailedPasswordAttemptCount\", \"FailedPasswordAttemptWindowStart\", \"FailedPasswordAnswerAttemptCount\", \"FailedPasswordAnswerAttemptWindowStart\", \"ProfileType\") Values (@pId, @Username, @Password, @Email, @PasswordQuestion, @PasswordAnswer, @IsApproved, @CreationDate, @LastPasswordChangedDate, @LastActivityDate, @IsLockedOut, @LastLockedOutDate, @FailedPasswordAttemptCount, @FailedPasswordAttemptWindowStart, @FailedPasswordAnswerAttemptCount, @FailedPasswordAnswerAttemptWindowStart, @ProfileType)", userTable);
+                        command.CommandText = string.Format(CultureInfo.InvariantCulture, "INSERT INTO \"{0}\" (\"pId\", \"Username\", \"Password\", \"Email\", \"PasswordQuestion\", \"PasswordAnswer\", \"CreationDate\", \"LastPasswordChangedDate\", \"LastActivityDate\", \"IsLockedOut\", \"LastLockedOutDate\", \"FailedPasswordAttemptCount\", \"FailedPasswordAttemptWindowStart\", \"FailedPasswordAnswerAttemptCount\", \"FailedPasswordAnswerAttemptWindowStart\", \"ProfileType\") Values (@pId, @Username, @Password, @Email, @PasswordQuestion, @PasswordAnswer, @CreationDate, @LastPasswordChangedDate, @LastActivityDate, @IsLockedOut, @LastLockedOutDate, @FailedPasswordAttemptCount, @FailedPasswordAttemptWindowStart, @FailedPasswordAnswerAttemptCount, @FailedPasswordAnswerAttemptWindowStart, @ProfileType)", userTable);
                         
                         command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = providerUserKey;
                         command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = model.UserName;
@@ -331,7 +348,6 @@ namespace Foodie.Controllers
                         command.Parameters.Add("@Email", NpgsqlDbType.Varchar, 255).Value = model.Email;
                         command.Parameters.Add("@PasswordQuestion", NpgsqlDbType.Varchar, 255).Value = model.SecurityQuestion;
                         command.Parameters.Add("@PasswordAnswer", NpgsqlDbType.Varchar, 255).Value = model.SecurityAnswer;
-                        command.Parameters.Add("@IsApproved", NpgsqlDbType.Boolean).Value = true;
                         command.Parameters.Add("@CreationDate", NpgsqlDbType.TimestampTZ).Value = createDate;
                         command.Parameters.Add("@LastPasswordChangedDate", NpgsqlDbType.TimestampTZ).Value = createDate;
                         command.Parameters.Add("@LastLockedOutDate", NpgsqlDbType.TimestampTZ).Value = createDate;
@@ -367,8 +383,10 @@ namespace Foodie.Controllers
                     }
                 }
             }
-            //if we get here then something went wrong
-            return null;
+
+            //if we get here then something went wrong or there is an existing user name
+            status = MembershipCreateStatus.DuplicateUserName;
+            throw new MembershipCreateUserException();
         }
 
         /// <summary>
@@ -385,7 +403,7 @@ namespace Foodie.Controllers
             {
                 using (NpgsqlCommand command = conn.CreateCommand())
                 {
-                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "SELECT \"pId\", \"Username\", \"Email\", \"PasswordQuestion\", \"IsApproved\", \"IsLockedOut\", \"CreationDate\", \"LastLoginDate\", \"LastActivityDate\", \"LastPasswordChangedDate\", \"LastLockedOutDate\" FROM \"{0}\" WHERE \"Username\" = @Username", userTable);
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "SELECT \"pId\", \"Username\", \"Email\", \"PasswordQuestion\", \"IsLockedOut\", \"CreationDate\", \"LastLoginDate\", \"LastActivityDate\", \"LastPasswordChangedDate\", \"LastLockedOutDate\" FROM \"{0}\" WHERE \"Username\" = @Username", userTable);
                     command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = username;
 
                     try
@@ -398,7 +416,17 @@ namespace Foodie.Controllers
                             if (reader.HasRows)
                             {
                                 reader.Read();
-                                user = GetUserFromReader(reader);
+                                user = new User();
+                                user.pId = Guid.Parse(reader.GetValue(0).ToString());
+                                user.Username = reader.GetString(1);
+                                user.Email = reader.IsDBNull(2) ? string.Empty : reader.GetString(2);
+                                user.PasswordQuestion = reader.IsDBNull(3) ? string.Empty : reader.GetString(3);
+                                user.IsLockedOut = reader.IsDBNull(5) ? false : reader.GetBoolean(4);
+                                user.CreationDate = reader.IsDBNull(5) ? DateTime.MinValue : reader.GetDateTime(5);
+                                user.LastLoginDate = reader.IsDBNull(6) ? DateTime.MinValue : reader.GetDateTime(6);
+                                user.LastActivityDate = reader.IsDBNull(7) ? DateTime.MinValue : reader.GetDateTime(7);
+                                user.LastPasswordChangedDate = reader.IsDBNull(8) ? DateTime.MinValue : reader.GetDateTime(8);
+                                user.LastLockedOutDate = reader.IsDBNull(9) ? DateTime.MinValue : reader.GetDateTime(9);
                                 reader.Close();
 
                                 if (userIsOnline)
@@ -443,7 +471,82 @@ namespace Foodie.Controllers
         /// <returns></returns>
         private bool Login(string username, string password)
         {
-            return true;
+            String dbPassword = "";
+            using(NpgsqlConnection connection = new NpgsqlConnection(connectionString)){
+                using (NpgsqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "SELECT \"Password\" FROM \"{0}\" WHERE \"Username\" = @Username AND \"IsLockedOut\" = @IsLockedOut", userTable);
+                    command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = username;
+                    command.Parameters.Add("@IsLockedOut", NpgsqlDbType.Boolean).Value = false;
+
+                    try
+                    {
+                        connection.Open();
+                        command.Prepare();
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
+                                reader.Read();
+                                dbPassword = reader.GetString(0);
+                            }
+                            //If no rows then username doesn't exist
+                            else
+                            {
+                                status = MembershipCreateStatus.InvalidUserName;
+                                throw new MembershipCreateUserException();
+                            }
+                        }
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        //If it throws an error then it is most likely that the user name doesnt exist or is incorrect
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (connection != null)
+                        {
+                            connection.Close();
+                        }
+                    }
+                }
+                //Check against hash to see if its the same if it is means same password
+                if (EncryptPassword(password).Equals(dbPassword))
+                {
+                    using (NpgsqlCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = string.Format(CultureInfo.InvariantCulture, "UPDATE \"{0}\" SET \"LastLoginDate\" = @LastLoginDate WHERE \"Username\" = @Username", userTable);
+
+                        command.Parameters.Add("@LastLoginDate", NpgsqlDbType.TimestampTZ).Value = DateTime.Now;
+                        command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = username;
+
+                        try
+                        {
+                            connection.Open();
+                            command.Prepare();
+
+                            command.ExecuteNonQuery();
+
+                            return true;
+                        }
+                        catch (NpgsqlException e)
+                        {
+                            Trace.WriteLine(e.ToString());
+                        }
+                        finally
+                        {
+                            if (connection != null)
+                            {
+                                connection.Close();
+                            }
+                        }
+                    }
+                }
+            }
+            //Have to update the failure count for wromg password
+            status = MembershipCreateStatus.InvalidPassword;
+            throw new MembershipCreateUserException();
         }
 
         /// <summary>

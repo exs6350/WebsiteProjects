@@ -1,10 +1,7 @@
-﻿@if (Request.IsAuthenticated) {
+﻿@if (Session["Username"] != null) {
     <text>
-        Hello, @Html.ActionLink(User.Identity.Name, "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })!
-        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" })) {
-            @Html.AntiForgeryToken()
-            <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-        }
+        <!--Hello, @Html.ActionLink((string)Session["Username"], "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })-->
+        <a>@Html.ActionLink("Log Off", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoutLink" })</a>
     </text>
 } else {
     <ul>
