@@ -1,0 +1,27 @@
+﻿@model Foodie.Models.Review
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Review</h2>
+
+<fieldset>
+    <ol>
+        <li>
+            @Html.LabelFor(m => m.UserId)
+            @Html.DisplayTextFor(m => m.UserId)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.DatePosted)
+            @Html.DisplayFor(m => m.DatePosted)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.RestaurantName)
+            @Html.DisplayFor(m => m.RestaurantName)
+        </li>
+        <li>
+            @Html.LabelFor(m => m.ReviewText)
+            @Html.DisplayFor(m => m.ReviewText)
+        </li>
+    </ol>
+</fieldset>

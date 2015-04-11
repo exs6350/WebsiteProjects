@@ -1,0 +1,30 @@
+﻿@model Foodie.Models.CreateReviewModel
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Submit Review</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    
+    <fieldset>
+        <legend> Review Submission Form</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.RestaurantName)
+                @Html.TextBoxFor(m => m.RestaurantName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ReviewText)
+                @Html.TextAreaFor(m => m.ReviewText)
+            </li>
+        </ol>
+        <input type="submit" value="Submit Review" />
+    </fieldset>
+}
+
+
+
