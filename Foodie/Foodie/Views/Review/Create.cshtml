@@ -15,7 +15,7 @@
         <ol>
             <li>
                 @Html.LabelFor(m => m.RestaurantName)
-                @Html.TextBoxFor(m => m.RestaurantName)
+                <input type="text" value="@ViewBag.restaurantName"/>
             </li>
             <li>
                 @Html.LabelFor(m => m.ReviewText)

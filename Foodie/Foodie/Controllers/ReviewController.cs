@@ -16,14 +16,16 @@ namespace Foodie.Controllers
     {
         private string connectionString = ConfigurationManager.ConnectionStrings["FoodieDatabase"].ConnectionString;
         // GET: Review
-        public ActionResult Index()
+        public ActionResult Index(List<Foodie.Models.Review> modelList)
         {
-            return View();
+            return View(modelList);
         }
 
         //GET: create Review
-        public ActionResult Create()
+        public ActionResult Create(int restaurantId, string restaurantName)
         {
+            ViewBag.restaurantId = restaurantId;
+            ViewBag.restaurantName = restaurantName;
             return View();
         }
         //POST: create Review
@@ -63,9 +65,11 @@ namespace Foodie.Controllers
 
 
                     //grab the user who's currently logged in
-                    //Guid personId = (Guid)Session["pId"];
+                    Guid personId = (Guid)Session["pId"];
+                    string userName = (string)Session["Username"];
                     review.ReviewId = reviewId;
-                    //review.UserId = personId;
+                    review.UserId = personId;
+                    review.UserName = userName;
                     review.ReviewText = crModel.ReviewText;
                     review.RestaurantName = crModel.RestaurantName;
                     review.RestaurantId = 0;
@@ -78,19 +82,18 @@ namespace Foodie.Controllers
                         comm.Parameters.Add("@ReviewText", NpgsqlDbType.Text).Value = review.ReviewText;
                         comm.Parameters.Add("@AverageRating", NpgsqlDbType.Real).Value = 0.0;
                         comm.Parameters.Add("@DatePosted", NpgsqlDbType.Date).Value = review.DatePosted;
-                        //comm.Parameters.Add("@UserId", NpgsqlDbType.Char).Value = review.UserId;
-                        comm.Parameters.Add("@UserId", NpgsqlDbType.Char).Value = "test";
+                        comm.Parameters.Add("@UserId", NpgsqlDbType.Char).Value = review.UserId;
                         comm.Parameters.Add("@RestaurantId", NpgsqlDbType.Integer).Value = review.RestaurantId;
                         try
                         {
                             comm.Prepare();
                             if (comm.ExecuteNonQuery() > 0)
                             {
-                                Console.WriteLine("Success");
+                                //Console.WriteLine("Success");
                             }
                             else
                             {
-                                Console.WriteLine("Failure");
+                                //Console.WriteLine("Failure");
                             }
 
                         }
