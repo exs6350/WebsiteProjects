@@ -17,13 +17,12 @@
 <!-- check if user is logged in-->
 @if (User.Identity.IsAuthenticated)
 {
-    <h2>Profile</h2>
 
     <fieldset>
         <ol>
             <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.DisplayTextFor(m => m.UserName)
+                @Html.LabelFor(m => m.Username)
+                @Html.DisplayTextFor(m => m.Username)
             </li>
             <li>
                 @Html.LabelFor(m => m.Email)
@@ -34,14 +33,14 @@
                 @Html.DisplayFor(m => m.ProfileType)
             </li>
             
-            @if (m.ProfileType.restaurant)
-            {
-                <li>
-                    @Html.LabelFor(m => m.Address)
-                    @Html.DisplayFor(m => m.Address)
-                </li>
-            }
+            
             
         </ol>
     </fieldset>
+}
+else
+{
+    <h2>Profile</h2>
+    
+    <p> There's nothing to show. You are not logged in</p>
 }
