@@ -15,9 +15,6 @@
                     <p class="site-title">@Html.ActionLink("Foodie Web Critics", "Index", "Home")</p>
                 </div>
                 <div class="header-nav-login">
-                    <section id="login">
-                        @Html.Partial("_LoginPartial")
-                    </section>
                     <nav>
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -26,6 +23,9 @@
                         </ul>
                     </nav>
                 </div>
+                <section style="float:right;" id="login">
+                    @Html.Partial("_LoginPartial")
+                </section>
             </div>
         </header>
         <div id="body">
@@ -41,6 +41,7 @@
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
+                            <li>@Html.ActionLink("Submit Review", "Create", "Review")</li>
                         </ul>
                     </nav>
                 </div>
