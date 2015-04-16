@@ -15,7 +15,7 @@
 
 <!-- content -->
 <!-- check if user is logged in-->
-@if (User.Identity.IsAuthenticated)
+@if (Session["Username"]!=null)
 {
 
     <fieldset>
@@ -32,7 +32,10 @@
                 @Html.LabelFor(m => m.ProfileType)
                 @Html.DisplayFor(m => m.ProfileType)
             </li>
-            
+            @if (ProfileType == Restaurant)
+            {
+                
+            }
             
             
         </ol>

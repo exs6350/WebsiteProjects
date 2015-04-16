@@ -116,6 +116,10 @@ namespace Foodie.Controllers
             return View(model);
         }
 
+        public ActionResult Profile()
+        {
+            return View();
+        }
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
