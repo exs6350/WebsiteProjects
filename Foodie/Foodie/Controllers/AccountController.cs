@@ -1,7 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Transactions;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using DotNetOpenAuth.AspNet;
 using System.Configuration;
+using Microsoft.Web.WebPages.OAuth;
+using WebMatrix.WebData;
 using Foodie.Models;
 using Npgsql;
 using System.Globalization;
@@ -10,7 +17,6 @@ using System.Diagnostics;
 using System.Web.Configuration;
 using System.Security.Cryptography;
 using System.Text;
-using System.Net.Mail;
 
 namespace Foodie.Controllers
 {
@@ -59,7 +65,7 @@ namespace Foodie.Controllers
             }
             // If we got this far, something failed, redisplay form
             catch(MembershipCreateUserException e){
-                ModelState.AddModelError("", ErrorCodeToString(status));
+                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
             }
             return View(model);
         }
@@ -97,11 +103,11 @@ namespace Foodie.Controllers
                 try
                 {
                     User newUser = CreateUser(model);
-                    return View("RegisterSuccess");
+                    return RedirectToAction("RegisterSuccess", "Account");
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(status));
+                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
                 }
             }
 
@@ -109,7 +115,6 @@ namespace Foodie.Controllers
             return View(model);
         }
 
-        [AllowAnonymous]
         public ActionResult Profile()
         {
             return View();
@@ -259,6 +264,11 @@ namespace Foodie.Controllers
         /// <returns></returns>
         private bool ChangePassword(string username, string oldPassword, string newPassword)
         {
+            if (!ValidateUser(username, oldPassword))
+            {
+                return false;
+            }
+
             int rowsaffected = 0;
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
@@ -295,6 +305,17 @@ namespace Foodie.Controllers
         }
 
         /// <summary>
+        /// Validate's a user when they are trying to login
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        private bool ValidateUser(string username, string password)
+        {
+            return true;
+        }
+
+        /// <summary>
         /// Create a user account 
         /// </summary>
         /// <param name="model"></param>
@@ -303,15 +324,6 @@ namespace Foodie.Controllers
         {
             Guid providerUserKey = model.pId;
             //lets do some simple email checking
-            try
-            {
-                MailAddress checkEmail = new MailAddress(model.Email);
-            }
-            catch
-            {
-                status = MembershipCreateStatus.InvalidEmail;
-                throw new MembershipCreateUserException();
-            }
             if (string.IsNullOrEmpty(model.Email) || !(EmailUnique(model.Email)))
             {
                 status = MembershipCreateStatus.DuplicateEmail;
@@ -535,7 +547,7 @@ namespace Foodie.Controllers
                     }
                 }
             }
-            //TODO: Have to update the failure count for wromg password
+            //Have to update the failure count for wromg password
             status = MembershipCreateStatus.InvalidPassword;
             throw new MembershipCreateUserException();
         }
@@ -590,5 +602,13 @@ namespace Foodie.Controllers
             return false;
         }
         #endregion
+    }
+
+    public class ProfileController : Controller
+    {
+        public ActionResult Profile()
+        {
+            return View();
+        }
     }
 }
