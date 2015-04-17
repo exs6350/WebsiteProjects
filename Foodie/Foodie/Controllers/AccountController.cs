@@ -67,7 +67,8 @@ namespace Foodie.Controllers
         //
         // GET: /Account/LogOff
         [HttpGet]
-        public ActionResult LogOff()
+        [AllowAnonymous]
+        public ActionResult LogOff(string returnUrl)
         {
             Session.Abandon();
             return RedirectToAction("Index", "Home");
@@ -108,6 +109,7 @@ namespace Foodie.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public ActionResult Profile()
         {
             return View();

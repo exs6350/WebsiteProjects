@@ -225,8 +225,10 @@ ul#menu {
         }
 .vertical-line {
     border-left: thick solid #ff0000;
-    height: 180px;
+    height: 200px;
     display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 .inner-food {
     margin: 0 auto;
