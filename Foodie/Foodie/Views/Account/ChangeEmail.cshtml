@@ -1,0 +1,38 @@
+﻿@model Foodie.Models.ChangeEmailModel
+
+@{
+    ViewBag.Title = "Change your email";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+</hgroup>
+
+<section id="changePasswordForm">
+    <h2>Login with your account.</h2>
+    @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <fieldset>
+            <legend>Change Password</legend>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.NewEmail )
+                    @Html.TextBoxFor(m => m.NewEmail)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ConfirmEmail)
+                    @Html.TextBoxFor(m => m.ConfirmEmail)
+                    @Html.ValidationMessageFor(m => m.ConfirmEmail)
+                </li>
+            </ol>
+            <input type="submit" value="Change Email" />
+        </fieldset>
+    }
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

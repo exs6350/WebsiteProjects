@@ -23,7 +23,7 @@ namespace Foodie.Controllers
         }
 
         [HttpGet]
-        public ActionResult Search()
+        public ActionResult Search(string query)
         {
             return View();
         }

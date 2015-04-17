@@ -1,8 +1,8 @@
 ﻿@if (Session["Username"] != null) {
-    <text>
-        <!--Hello, @Html.ActionLink((string)Session["Username"], "Manage", "Account", routeValues: null, htmlAttributes: new { @class = "username", title = "Manage" })-->
-        <a>@Html.ActionLink("Log Off", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoutLink" })</a>
-    </text>
+    <ul>
+        <li>@Html.ActionLink((string)Session["Username"], "Profile", "Account", routeValues: null, htmlAttributes: new { id = "profileLink" })</li>
+        <li>@Html.ActionLink("Log Off", "LogOff", "Account", routeValues: null, htmlAttributes: new { id = "logoffLink" })</li>
+    </ul>
 } else {
     <ul>
         <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>

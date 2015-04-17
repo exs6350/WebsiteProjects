@@ -1,0 +1,46 @@
+﻿@model Foodie.Models.User
+@{
+    ViewBag.Title = "Profile";
+}
+
+@section featured{
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h1>@ViewBag.Title.</h1>
+            </hgroup>
+        </div>
+    </section>
+}
+
+<!-- content -->
+<!-- check if user is logged in-->
+@if (User.Identity.IsAuthenticated)
+{
+
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Username)
+                @Html.DisplayTextFor(m => m.Username)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email)
+                @Html.DisplayFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ProfileType)
+                @Html.DisplayFor(m => m.ProfileType)
+            </li>
+            
+            
+            
+        </ol>
+    </fieldset>
+}
+else
+{
+    <h2>Profile</h2>
+    
+    <p> There's nothing to show. You are not logged in</p>
+}

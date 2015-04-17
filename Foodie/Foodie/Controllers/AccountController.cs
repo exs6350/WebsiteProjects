@@ -65,17 +65,16 @@ namespace Foodie.Controllers
             }
             // If we got this far, something failed, redisplay form
             catch(MembershipCreateUserException e){
-                ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                ModelState.AddModelError("", ErrorCodeToString(status));
             }
             return View(model);
         }
 
         //
-        // POST: /Account/LogOff
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult LogOff()
+        // GET: /Account/LogOff
+        [HttpGet]
+        [AllowAnonymous]
+        public ActionResult LogOff(string returnUrl)
         {
             Session.Abandon();
             return RedirectToAction("Index", "Home");
@@ -108,7 +107,7 @@ namespace Foodie.Controllers
                 }
                 catch (MembershipCreateUserException e)
                 {
-                    ModelState.AddModelError("", ErrorCodeToString(e.StatusCode));
+                    ModelState.AddModelError("", ErrorCodeToString(status));
                 }
             }
 
@@ -116,6 +115,57 @@ namespace Foodie.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult Profile()
+        {
+            User user = new User();
+            user.Email = (string)Session["Email"];
+            user.Username = (string)Session["Username"];
+            user.ProfileType = (ProfileType)((int)Session["ProfileType"]);
+            user.LastLoginDate = (DateTime)Session["LastLoginDate"];
+            user.CreationDate = (DateTime)Session["LastLoginDate"];
+
+            //handle for restaurant users
+            if (user.ProfileType == ProfileType.Restaurant)
+            {
+
+            }
+            return View(user);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordModel model)
+        {
+            if (UpdatePassword(model) && ModelState.IsValid)
+            {
+                return RedirectToAction("Profile", "Account");
+            }
+            ModelState.AddModelError("", "There was an error in changing your password");
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public ActionResult ChangeEmail(){
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEmail(string newEmail) {
+            return View();
+        }
 
         #region Helpers
         private ActionResult RedirectToLocal(string returnUrl)
@@ -255,28 +305,21 @@ namespace Foodie.Controllers
         /// <summary>
         /// Allows a user to change their password
         /// </summary>
-        /// <param name="username"></param>
-        /// <param name="oldPassword"></param>
         /// <param name="newPassword"></param>
         /// <returns></returns>
-        private bool ChangePassword(string username, string oldPassword, string newPassword)
+        private bool UpdatePassword(Foodie.Models.ChangePasswordModel model)
         {
-            if (!ValidateUser(username, oldPassword))
-            {
-                return false;
-            }
-
             int rowsaffected = 0;
 
             using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
             {
                 using (NpgsqlCommand command = conn.CreateCommand())
                 {
-                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "UPDATE \"{0}\" SET \"Password\" = @Password, \"LastPasswordChangedDate\" = @LastPasswordChangedDate WHERE \"Username\" = @Username", userTable);
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "UPDATE \"{0}\" SET \"Password\" = @Password, \"LastPasswordChangedDate\" = @LastPasswordChangedDate WHERE \"pId\" = @pId", userTable);
 
-                    command.Parameters.Add("@Password", NpgsqlDbType.Varchar, 128).Value = EncryptPassword(newPassword);
+                    command.Parameters.Add("@Password", NpgsqlDbType.Varchar, 128).Value = EncryptPassword(model.NewPassword);
                     command.Parameters.Add("@LastPasswordChangedDate", NpgsqlDbType.TimestampTZ).Value = DateTime.Now;
-                    command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = username;
+                    command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = Session["pId"].ToString();
 
                     try
                     {
@@ -299,17 +342,6 @@ namespace Foodie.Controllers
                 return true;
             }
             return false;
-        }
-
-        /// <summary>
-        /// Validate's a user when they are trying to login
-        /// </summary>
-        /// <param name="username"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
-        private bool ValidateUser(string username, string password)
-        {
-            return true;
         }
 
         /// <summary>

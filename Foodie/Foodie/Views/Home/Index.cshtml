@@ -12,11 +12,30 @@
         </div>
     </section>
 }
-<div>
-    <h2 style="text-align: center;">Welcome to Foodie the site for food connoisseur's.</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <h2 style="text-align: center;">Welcome to Foodie the site for food connoisseur's.</h2>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="get" class="search-engine" style="text-align: center;margin-top: 2em;">
+                <input type="text" style="margin-right: 1em;width:50%;" name="search-query" />
+                <input type="submit" value="Search" />
+            </form><br /><br /><br />
+        </div>
+    </div>
+    
 
-    <form method="get" class="search-engine" style="text-align: center;margin-top: 2em;">
-        <input type="text" style="margin-right: 1em;" name="search-query" />
-        <input type="submit" value="Search" />
-    </form>
+    <div class="food-home">
+        <div class="inner-food">
+            <img class="img-responsive" style="width:25%;height:200px;" src="~/Images/food1.jpg" />
+            <div class="vertical-line"></div>
+            <img class="img-responsive" style="width:25%;height:200px;" src="~/Images/food2.jpg" />
+            <div class="vertical-line"></div>
+            <img class="img-responsive" style="width:25%;height:200px;" src="~/Images/food3.jpg" />   
+        </div>     
+    </div>
 </div>
