@@ -600,4 +600,12 @@ namespace Foodie.Controllers
         }
         #endregion
     }
+
+    public class ProfileController : Controller
+    {
+        public ActionResult Profile()
+        {
+            return View();
+        }
+    }
 }
