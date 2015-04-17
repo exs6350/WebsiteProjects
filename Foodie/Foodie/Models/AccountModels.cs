@@ -98,6 +98,19 @@ namespace Foodie.Models
         public string ConfirmPassword { get; set; }
     }
 
+    public class ChangeEmailModel
+    {
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "New email address")]
+        public string NewEmail { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        [Display(Name = "Confirm new email address")]
+        [Compare("NewEmail", ErrorMessage = "The new email address and confirmation email do not match.")]
+        public string ConfirmEmail { get; set; }
+    }
+
     public class LoginModel
     {
         [Required]
