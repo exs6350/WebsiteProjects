@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Transactions;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
-using DotNetOpenAuth.AspNet;
 using System.Configuration;
-using Microsoft.Web.WebPages.OAuth;
-using WebMatrix.WebData;
 using Foodie.Models;
 using Npgsql;
 using System.Globalization;
@@ -45,7 +38,8 @@ namespace Foodie.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            try{
+            try
+            {
                 if (ModelState.IsValid && Login(model.UserName, model.Password))
                 {
                     User user = GetUser(model.UserName, true);
@@ -60,11 +54,13 @@ namespace Foodie.Controllers
                     Session["LastPasswordChangedDate"] = user.LastPasswordChangedDate;
                     Session["LastLockedOutDate"] = user.LastLockedOutDate;
                     Session["ProfileType"] = user.ProfileType;
+                    Session["CreationDate"] = user.CreationDate;
                     return RedirectToAction("Index", "Home");
                 }
             }
             // If we got this far, something failed, redisplay form
-            catch(MembershipCreateUserException e){
+            catch (MembershipCreateUserException e)
+            {
                 ModelState.AddModelError("", ErrorCodeToString(status));
             }
             return View(model);
@@ -124,7 +120,7 @@ namespace Foodie.Controllers
             user.Username = (string)Session["Username"];
             user.ProfileType = (ProfileType)((int)Session["ProfileType"]);
             user.LastLoginDate = (DateTime)Session["LastLoginDate"];
-            user.CreationDate = (DateTime)Session["LastLoginDate"];
+            user.CreationDate = (DateTime)Session["CreationDate"];
 
             //handle for restaurant users
             if (user.ProfileType == ProfileType.Restaurant)
@@ -156,15 +152,22 @@ namespace Foodie.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public ActionResult ChangeEmail(){
+        public ActionResult ChangeEmail()
+        {
             return View();
         }
 
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ChangeEmail(string newEmail) {
-            return View();
+        public ActionResult ChangeEmail(ChangeEmailModel model)
+        {
+            if (UpdateEmail(model.NewEmail) && ModelState.IsValid)
+            {
+                return RedirectToAction("Profile", "Account");
+            }
+            ModelState.AddModelError("", ErrorCodeToString(MembershipCreateStatus.DuplicateEmail));
+            return View(model);
         }
 
         #region Helpers
@@ -278,18 +281,23 @@ namespace Foodie.Controllers
                         conn.Open();
                         command.Prepare();
 
-                        using(NpgsqlDataReader reader = command.ExecuteReader()){
-                            if(reader.HasRows){
+                        using (NpgsqlDataReader reader = command.ExecuteReader())
+                        {
+                            if (reader.HasRows)
+                            {
                                 return false;
                             }
                             return true;
                         }
                     }
-                    catch(NpgsqlException e){
+                    catch (NpgsqlException e)
+                    {
                         Trace.WriteLine(e.ToString());
                     }
-                    finally{
-                        if(conn != null){
+                    finally
+                    {
+                        if (conn != null)
+                        {
                             conn.Close();
                         }
                     }
@@ -307,7 +315,7 @@ namespace Foodie.Controllers
         /// </summary>
         /// <param name="newPassword"></param>
         /// <returns></returns>
-        private bool UpdatePassword(Foodie.Models.ChangePasswordModel model)
+        private bool UpdatePassword(ChangePasswordModel model)
         {
             int rowsaffected = 0;
 
@@ -319,7 +327,7 @@ namespace Foodie.Controllers
 
                     command.Parameters.Add("@Password", NpgsqlDbType.Varchar, 128).Value = EncryptPassword(model.NewPassword);
                     command.Parameters.Add("@LastPasswordChangedDate", NpgsqlDbType.TimestampTZ).Value = DateTime.Now;
-                    command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = Session["pId"].ToString();
+                    command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = (string)Session["pId"];
 
                     try
                     {
@@ -328,17 +336,21 @@ namespace Foodie.Controllers
 
                         rowsaffected = command.ExecuteNonQuery();
                     }
-                    catch(NpgsqlException e){
+                    catch (NpgsqlException e)
+                    {
                         Trace.WriteLine(e.ToString());
                     }
-                    finally{
-                        if(conn != null){
+                    finally
+                    {
+                        if (conn != null)
+                        {
                             conn.Close();
                         }
                     }
                 }
             }
-            if(rowsaffected > 0){
+            if (rowsaffected > 0)
+            {
                 return true;
             }
             return false;
@@ -373,7 +385,7 @@ namespace Foodie.Controllers
                     using (NpgsqlCommand command = conn.CreateCommand())
                     {
                         command.CommandText = string.Format(CultureInfo.InvariantCulture, "INSERT INTO \"{0}\" (\"pId\", \"Username\", \"Password\", \"Email\", \"PasswordQuestion\", \"PasswordAnswer\", \"CreationDate\", \"LastPasswordChangedDate\", \"LastActivityDate\", \"IsLockedOut\", \"LastLockedOutDate\", \"FailedPasswordAttemptCount\", \"FailedPasswordAttemptWindowStart\", \"FailedPasswordAnswerAttemptCount\", \"FailedPasswordAnswerAttemptWindowStart\", \"ProfileType\") Values (@pId, @Username, @Password, @Email, @PasswordQuestion, @PasswordAnswer, @CreationDate, @LastPasswordChangedDate, @LastActivityDate, @IsLockedOut, @LastLockedOutDate, @FailedPasswordAttemptCount, @FailedPasswordAttemptWindowStart, @FailedPasswordAnswerAttemptCount, @FailedPasswordAnswerAttemptWindowStart, @ProfileType)", userTable);
-                        
+
                         command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = providerUserKey;
                         command.Parameters.Add("@Username", NpgsqlDbType.Varchar, 255).Value = model.UserName;
                         command.Parameters.Add("@Password", NpgsqlDbType.Varchar, 255).Value = EncryptPassword(model.Password);
@@ -391,22 +403,28 @@ namespace Foodie.Controllers
                         command.Parameters.Add("@FailedPasswordAnswerAttemptWindowStart", NpgsqlDbType.TimestampTZ).Value = createDate;
                         command.Parameters.Add("@ProfileType", NpgsqlDbType.Integer).Value = model.ProfileType;
 
-                        try{
+                        try
+                        {
                             conn.Open();
                             command.Prepare();
 
-                            if(command.ExecuteNonQuery() > 0){
+                            if (command.ExecuteNonQuery() > 0)
+                            {
                                 //success
                             }
-                            else{
+                            else
+                            {
                                 //something went wrong
                             }
                         }
-                        catch(NpgsqlException e){
+                        catch (NpgsqlException e)
+                        {
                             Trace.WriteLine(e.ToString());
                         }
-                        finally{
-                            if(conn != null){
+                        finally
+                        {
+                            if (conn != null)
+                            {
                                 conn.Close();
                             }
                         }
@@ -504,7 +522,8 @@ namespace Foodie.Controllers
         private bool Login(string username, string password)
         {
             String dbPassword = "";
-            using(NpgsqlConnection connection = new NpgsqlConnection(connectionString)){
+            using (NpgsqlConnection connection = new NpgsqlConnection(connectionString))
+            {
                 using (NpgsqlCommand command = connection.CreateCommand())
                 {
                     command.CommandText = string.Format(CultureInfo.InvariantCulture, "SELECT \"Password\" FROM \"{0}\" WHERE \"Username\" = @Username AND \"IsLockedOut\" = @IsLockedOut", userTable);
@@ -621,10 +640,56 @@ namespace Foodie.Controllers
                         {
                             conn.Close();
                         }
-                    } 
+                    }
                 }
             }
             if (rowsAffected > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Used to updated an existing users email address
+        /// </summary>
+        /// <param name="newEmail"></param>
+        /// <returns></returns>
+        private bool UpdateEmail(string newEmail)
+        {
+            int rowsaffected = 0;
+            if (string.IsNullOrEmpty(newEmail) || !(EmailUnique(newEmail)))
+            {
+                return false;
+            }
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "UPDATE \"{0}\" SET \"Email\" = @Email WHERE \"pId\" = @pId", userTable);
+                    command.Parameters.Add("@Email", NpgsqlDbType.Varchar, 255).Value = newEmail;
+                    command.Parameters.Add("@pId", NpgsqlDbType.Varchar, 36).Value = (string)Session["pId"];
+
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+                        rowsaffected = command.ExecuteNonQuery();
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+            if (rowsaffected > 0)
             {
                 return true;
             }
