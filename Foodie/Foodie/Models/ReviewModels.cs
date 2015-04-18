@@ -21,17 +21,18 @@ namespace Foodie.Models
         [Display(Name = "Review Text")]
         public string ReviewText { get; set; }
         
-        [Column("AverageRating")]
-        public float AverageRating { get; set; }
+        [Column("AverageReviewRating")]
+        public float AverageReviewRating { get; set; }
 
         [DataType(DataType.DateTime)]
         [Column("DatePosted")]
         public DateTime DatePosted { get; set; }
 
         [ForeignKey("Users")]
-        [Column("PostedBy")]
+        [Column("UserId")]
         public Guid UserId { get; set; }
 
+        [Display(Name = "Submitted By")]
         public string UserName { get; set; }
 
         [ForeignKey("Restauraunts")]
@@ -42,6 +43,8 @@ namespace Foodie.Models
         [Column("RestaurantId")]
         [Display(Name = "Restaurant")]
         public string RestaurantName { get; set; }
+
+        public int Rating { get; set; }
 
 
 
@@ -58,9 +61,10 @@ namespace Foodie.Models
         [Column("RestaurantId")]
         public string RestaurantId { get; set; }
 
-        [Required]
         [Display(Name = "Review Text")]
         [DataType(DataType.MultilineText)]
         public string ReviewText { get; set; }
+
+        public int Rating { get; set; }
     }
 }

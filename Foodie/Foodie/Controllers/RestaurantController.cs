@@ -57,11 +57,11 @@ namespace Foodie.Controllers
                         command.Prepare();
                         if (command.ExecuteNonQuery() > 0)
                         {
-                            Console.WriteLine("success");
+                            //Console.WriteLine("success");
                         }
                         else
                         {
-                            Console.WriteLine("failure");
+                            //Console.WriteLine("failure");
                         }
                     }
                     catch (NpgsqlException e)
