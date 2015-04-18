@@ -14,7 +14,7 @@ namespace Foodie.Models
     {
         [Key]
         [Column("ReviewId")]
-        public int ReviewId { get; set; }
+        public Guid ReviewId { get; set; }
 
         [DataType(DataType.Text)]
         [Column("ReviewText")]
@@ -36,7 +36,7 @@ namespace Foodie.Models
 
         [ForeignKey("Restauraunts")]
         [Column("RestaurantId")]
-        public int RestaurantId { get; set; }
+        public Guid RestaurantId { get; set; }
 
         [ForeignKey("Restauraunts")]
         [Column("RestaurantId")]
@@ -56,7 +56,7 @@ namespace Foodie.Models
 
         [ForeignKey("Restauraunts")]
         [Column("RestaurantId")]
-        public int RestaurantId { get; set; }
+        public string RestaurantId { get; set; }
 
         [Required]
         [Display(Name = "Review Text")]
