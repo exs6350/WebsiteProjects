@@ -46,7 +46,7 @@ namespace Foodie.Models
 
         public int Rating { get; set; }
 
-
+        public IEnumerable<CommentViewModel> comments { get; set; }
 
     }
     

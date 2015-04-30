@@ -188,7 +188,60 @@ namespace Foodie.Helpers
             return review;
         }
 
-        
+        public static CommentViewModel getCommentInfo(string commentId) 
+        {
+            using (var connection = new Npgsql.NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                var trans = connection.BeginTransaction();
+
+                using (var command = new Npgsql.NpgsqlCommand("getCommentInfo", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var idParam = command.CreateParameter();
+                    idParam.ParameterName = "query";
+                    idParam.DbType = System.Data.DbType.String;
+                    idParam.Value = commentId;
+                    command.Parameters.Add(idParam);
+
+                    var da = new Npgsql.NpgsqlDataAdapter(command);
+                    var ds = new System.Data.DataSet();
+                    da.Fill(ds);
+                    trans.Commit();
+                    connection.Close();
+                } 
+            }
+            return null;        
+        }
+
+        public static IEnumerable<CommentViewModel> getReviewComments(string commentId)
+        {
+            using (var connection = new Npgsql.NpgsqlConnection(connectionString))
+            {
+                connection.Open();
+                var trans = connection.BeginTransaction();
+
+                using (var command = new Npgsql.NpgsqlCommand("getReviewComments", connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    var idParam = command.CreateParameter();
+                    idParam.ParameterName = "query";
+                    idParam.DbType = System.Data.DbType.String;
+                    idParam.Value = commentId;
+                    command.Parameters.Add(idParam);
+
+                    var da = new Npgsql.NpgsqlDataAdapter(command);
+                    var ds = new System.Data.DataSet();
+                    da.Fill(ds);
+                    trans.Commit();
+                    connection.Close();
+                }
+            }
+
+            return null;
+        }
         
     }
 }
