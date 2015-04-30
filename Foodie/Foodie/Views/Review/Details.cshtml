@@ -3,7 +3,7 @@
     ViewBag.Title = "View";
 }
 
-<h2>Review</h2>
+<h2>Review for @Model.RestaurantName</h2>
 
 <fieldset>
     <ol>
@@ -16,12 +16,12 @@
             @Html.DisplayFor(m => m.DatePosted)
         </li>
         <li>
-            @Html.LabelFor(m => m.RestaurantName)
-            @Html.DisplayFor(m => m.RestaurantName)
+            @Html.LabelFor(m => m.Rating)
+            @Html.DisplayFor(m => m.Rating)
         </li>
         <li>
             @Html.LabelFor(m => m.ReviewText)
-            @Html.DisplayFor(m => m.ReviewText)
+            @Html.DisplayTextFor(m => m.ReviewText)
         </li>
     </ol>
 </fieldset>

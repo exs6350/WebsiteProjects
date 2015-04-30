@@ -37,13 +37,15 @@ namespace Foodie.Controllers
         public ActionResult Create(Foodie.Models.CreateReviewModel model)
         {
             Review review = CreateReview(model);
-            return RedirectToAction("Details", review);
+            return RedirectToAction("Details", "Review", new {reviewId = review.ReviewId.ToString()});
         }
 
         //GET: review details page
-        public ActionResult Details(Foodie.Models.Review model)
+        public ActionResult Details(string reviewId)
         {
-            return View(model);
+            
+            Review review = Querries.getReview(reviewId);
+            return View(review);
         }
 
         /// <summary>
@@ -78,26 +80,28 @@ namespace Foodie.Controllers
                     review.RestaurantName = crModel.RestaurantName;
                     review.RestaurantId = new Guid(crModel.RestaurantId);
                     review.DatePosted = DateTime.Now;
+                    review.Rating = crModel.Rating;
                     using (NpgsqlCommand comm = conn.CreateCommand())
                     {
                         comm.CommandText = string.Format(CultureInfo.InvariantCulture,
-                            "INSERT INTO \"Reviews\" (\"ReviewId\", \"ReviewText\", \"AverageRating\", \"DatePosted\", \"UserId\", \"RestaurantId\") Values (@ReviewId, @ReviewText, @AverageRating, @DatePosted, @UserId, @RestaurantId)");
+                            "INSERT INTO \"Reviews\" (\"ReviewId\", \"ReviewText\", \"AverageReviewRating\", \"DatePosted\", \"UserId\", \"RestaurantId\", \"Rating\") Values (@ReviewId, @ReviewText, @AverageReviewRating, @DatePosted, @UserId, @RestaurantId, @Rating)");
                         comm.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = review.ReviewId;
                         comm.Parameters.Add("@ReviewText", NpgsqlDbType.Text).Value = review.ReviewText;
-                        comm.Parameters.Add("@AverageRating", NpgsqlDbType.Real).Value = 0.0;
+                        comm.Parameters.Add("@AverageReviewRating", NpgsqlDbType.Real).Value = 0.0;
                         comm.Parameters.Add("@DatePosted", NpgsqlDbType.Date).Value = review.DatePosted;
                         comm.Parameters.Add("@UserId", NpgsqlDbType.Char, 36).Value = review.UserId;
                         comm.Parameters.Add("@RestaurantId", NpgsqlDbType.Char, 36).Value = review.RestaurantId;
+                        comm.Parameters.Add("@Rating", NpgsqlDbType.Integer).Value = review.Rating;
                         try
                         {
                             comm.Prepare();
                             if (comm.ExecuteNonQuery() > 0)
                             {
-                                Console.WriteLine("Success");
+                                //Console.WriteLine("Success");
                             }
                             else
                             {
-                                Console.WriteLine("Failure");
+                                //Console.WriteLine("Failure");
                             }
 
                         }

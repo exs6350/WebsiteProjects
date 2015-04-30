@@ -18,6 +18,11 @@
                 @Html.DisplayFor(m  => m.RestaurantName)
             </li>
             <li>
+                @Html.LabelFor(m => m.Rating)
+                @Html.TextBoxFor( m => m.Rating)
+                
+            </li>
+            <li>
                 @Html.LabelFor(m => m.ReviewText)
                 @Html.TextAreaFor(m => m.ReviewText)
             </li>
