@@ -20,7 +20,7 @@
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
                             @if (Session["Username"] != null) {
-                                <li>@Html.ActionLink("Share Restaurant", "Create", "Restaurant")</li>
+                            <li>@Html.ActionLink("Share Restaurant", "Create", "Restaurant")</li>
                             }
                         </ul>
                     </nav>
@@ -43,7 +43,7 @@
                         <ul id="menu">
                             <li>@Html.ActionLink("Home", "Index", "Home")</li>
                             <li>@Html.ActionLink("About", "About", "Home")</li>
-                            <li>@Html.ActionLink("Share Restaurant", "Create", "Review")</li>
+                            <li>@Html.ActionLink("Share Restaurant", "Create", "Restaurant")</li>
                         </ul>
                     </nav>
                 </div>

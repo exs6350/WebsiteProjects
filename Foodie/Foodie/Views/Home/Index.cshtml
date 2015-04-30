@@ -20,11 +20,13 @@
     </div>
     
     <div class="row">
-        <div class="col-sm-12">
-            <form method="get" class="search-engine" style="text-align: center;margin-top: 2em;">
-                <input type="text" style="margin-right: 1em;width:50%;" name="search-query" />
-                <input type="submit" value="Search" />
-            </form><br /><br /><br />
+        <div class="col-sm-12 center-block" >
+             @using (Html.BeginForm("Search", "Home", FormMethod.Get))
+             {
+                 <input type="search" name="query" placeholder="Search" />
+                 <input type="submit" value="Search" />
+             }
+            <br /><br /><br />
         </div>
     </div>
     

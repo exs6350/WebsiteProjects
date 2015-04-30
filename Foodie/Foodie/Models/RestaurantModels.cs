@@ -14,7 +14,6 @@ namespace Foodie.Models
         [Column("RestaurantId")]
         public Guid RestaurantId { get; set; }
 
-
         [DataType(DataType.Text)]
         [Column("Name")]
         [Display(Name = "Restaurant Name")]
