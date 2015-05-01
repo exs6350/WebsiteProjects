@@ -4,27 +4,26 @@
 }
 
 <h2>Review for @Model.RestaurantName</h2>
-
-<fieldset>
-    <ol>
-        <li>
-            @Html.LabelFor(m => m.UserName)
-            @Html.DisplayTextFor(m => m.UserName)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.DatePosted)
-            @Html.DisplayFor(m => m.DatePosted)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.Rating)
-            @Html.DisplayFor(m => m.Rating)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.ReviewText)
-            @Html.DisplayTextFor(m => m.ReviewText)
-        </li>
-    </ol>
-</fieldset>
+    <fieldset>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.UserName)
+                @Html.DisplayTextFor(m => m.UserName)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.DatePosted)
+                @Html.DisplayFor(m => m.DatePosted)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Rating)
+                @Html.DisplayFor(m => m.Rating)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.ReviewText)
+                @Html.DisplayTextFor(m => m.ReviewText)
+            </li>
+        </ol>
+    </fieldset>
 @{
     var com = new Foodie.Models.CommentViewModel();
     com.ReviewId = Model.ReviewId.ToString();
