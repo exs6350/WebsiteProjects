@@ -21,12 +21,13 @@
     
     <div class="row">
         <div class="col-sm-12 center-block" >
-             @using (Html.BeginForm("Search", "Home", FormMethod.Get))
-             {
-                 <input type="search" name="query" placeholder="Search" />
-                 <input type="submit" value="Search" />
-             }
-            <br /><br /><br />
+                <br/><br/>
+                @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "search-engine" }))
+                {
+                    <input style="width:75%" type="search" name="query" placeholder="Search" />
+                    <input type="submit" value="Search" />
+                }
+                <br /><br /><br />
         </div>
     </div>
     

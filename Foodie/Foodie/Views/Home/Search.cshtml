@@ -1,7 +1,45 @@
-﻿
+﻿@model List<Foodie.Models.Restaurant>
 @{
-    ViewBag.Title = "Search results";
+    ViewBag.Title = "Results Found";
 }
 
-<h2>Results</h2>
+<div class="container-fluid">
+    <hgroup class="title">
+        <h1>@ViewBag.Title</h1>
+    </hgroup>
 
+    <div class="row">
+        <div class="search-engine">
+            @using (Html.BeginForm("Search", "Home", FormMethod.Get, new { @class = "search-engine" }))
+            {
+                <input style="width: 75%;" type="search" name="query" placeholder="Search" />
+                <input type="submit" value="Search" />
+            }
+        </div>
+    </div>
+
+    @foreach (var item in Model)
+    {
+        <br />
+        <div class="row">
+            <div class="col-xs-4">
+                <div>
+                    @Html.ActionLink(item.Name, "Details", "Restaurant", new { restaurantId = item.RestaurantId.ToString() }, null)
+                </div>
+            </div>
+            <div class="col-xs-4">
+                @Html.DisplayTextFor(m => item.FoodType)
+            </div>
+            <div class="col-xs-4">
+                @Html.DisplayTextFor(m => item.City),@Html.DisplayTextFor(m => item.State)
+            </div>
+        </div>
+        <br>
+    }
+
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
