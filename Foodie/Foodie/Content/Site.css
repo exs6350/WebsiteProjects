@@ -424,6 +424,11 @@ label {
     font-weight: 600;
 }
 
+.search-engine {
+        margin: 0 auto;
+        max-width: 965px;
+}
+
 label.checkbox {
     display: inline;
 }
@@ -720,11 +725,6 @@ tr.pager td {
     /* forms */
     input {
         width: 90%;
-    }
-
-    .search-engine {
-        border-radius: 5px;
-        display: block;
     }
 
     /* login page */

@@ -46,3 +46,13 @@ CREATE TABLE "Reviews" (
 	"RestaurantId" character(36) NOT NULL,
 	CONSTRAINT UserId FOREIGN KEY ("UserId") REFERENCES Users ("pId") 
 );
+
+CREATE OR REPLACE FUNCTION search(query character varying) RETURNS refcursor AS
+$BODY$DECLARE ref refcursor;
+BEGIN
+OPEN ref FOR SELECT * FROM "Restaurants" WHERE "Name" ILIKE '%' || query OR "Name" ILIKE query || '%'
+OR "Name" ILIKE query ORDER BY "Name";
+RETURN ref;
+END;
+$BODY$
+  LANGUAGE plpgsql;
