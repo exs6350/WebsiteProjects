@@ -28,6 +28,8 @@
 @{
     var com = new Foodie.Models.CommentViewModel();
     com.ReviewId = Model.ReviewId.ToString();
+    com.UserName = (string)Session["Username"];
+    com.UserId = ((Guid)Session["pId"]).ToString();
     Html.RenderPartial("_AddComment", com);
 }
 @foreach (Foodie.Models.CommentViewModel comment in Model.comments)

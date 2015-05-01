@@ -4,7 +4,9 @@ using NpgsqlTypes;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Data;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -188,6 +190,48 @@ namespace Foodie.Helpers
             return review;
         }
 
+        public static void insertComment(CommentViewModel comment){
+             using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    Guid commentId = Guid.NewGuid();
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, 
+                        "INSERT INTO \"Comments\" (\"CommentId\", \"ReviewId\", \"DateCommented\", \"CommentText\", \"CommentOrder\", \"UserId\") Values (@CommentId, @ReviewId, @DateCommented, @CommentText, @CommentOrder, @UserId)");
+                    command.Parameters.Add("@CommentId", NpgsqlDbType.Char, 36).Value = commentId.ToString();
+                    command.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = comment.ReviewId;
+                    command.Parameters.Add("@DateCommented", NpgsqlDbType.Date).Value = DateTime.Now;
+                    command.Parameters.Add("@CommentText", NpgsqlDbType.Text).Value = comment.CommentText;
+                    command.Parameters.Add("@CommentOrder", NpgsqlDbType.Integer).Value = 0;
+                    command.Parameters.Add("@UserId", NpgsqlDbType.Char, 36).Value = comment.UserId;
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            //Console.WriteLine("success");
+                        }
+                        else
+                        {
+                            //Console.WriteLine("failure");
+                        }
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+        }
+
         public static CommentViewModel getCommentInfo(string commentId) 
         {
             using (var connection = new Npgsql.NpgsqlConnection(connectionString))
@@ -215,34 +259,58 @@ namespace Foodie.Helpers
             return null;        
         }
 
-        public static IEnumerable<CommentViewModel> getReviewComments(string commentId)
+        public static IEnumerable<CommentViewModel> getReviewComments(string reviewId)
         {
-            using (var connection = new Npgsql.NpgsqlConnection(connectionString))
+            List<Foodie.Models.CommentViewModel> model = new List<Foodie.Models.CommentViewModel>();
+
+            if (string.IsNullOrEmpty(reviewId)) { return null; }
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
             {
-                connection.Open();
-                var trans = connection.BeginTransaction();
-
-                using (var command = new Npgsql.NpgsqlCommand("getReviewComments", connection))
+                try
                 {
-                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    conn.Open();
+                    //Stored Procedure that executes a search on a query
+                    //This returns a cursor to the data set need to do this in a transaction
+                    NpgsqlTransaction transaction = conn.BeginTransaction();
+                    NpgsqlCommand command = conn.CreateCommand();
+                    //Yes this is vulnerable to sql injection will sanitize this later.....
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "retrievecomments(" + "'" + reviewId + "'" + ")");
+                    command.Transaction = transaction;
+                    command.CommandType = CommandType.StoredProcedure;
 
-                    var idParam = command.CreateParameter();
-                    idParam.ParameterName = "query";
-                    idParam.DbType = System.Data.DbType.String;
-                    idParam.Value = commentId;
-                    command.Parameters.Add(idParam);
-
-                    var da = new Npgsql.NpgsqlDataAdapter(command);
-                    var ds = new System.Data.DataSet();
-                    da.Fill(ds);
-                    trans.Commit();
-                    connection.Close();
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Foodie.Models.CommentViewModel temp = new Foodie.Models.CommentViewModel();
+                            temp.CommentId = reader.GetValue(0).ToString();
+                            temp.ReviewId = reader.GetString(1);
+                            temp.UserId = reader.GetString(2);
+                            temp.CommentText = reader.GetString(3);
+                            temp.commentOrder = reader.GetInt32(4);
+                            temp.UserName = reader.GetString(5);
+                            
+                            model.Add(temp);
+                        }
+                        reader.Close();
+                        transaction.Commit();
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    Trace.WriteLine(e.ToString());
+                }
+                finally
+                {
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
                 }
             }
-
-            return null;
+            return model;
         }
-        
     }
 }
 

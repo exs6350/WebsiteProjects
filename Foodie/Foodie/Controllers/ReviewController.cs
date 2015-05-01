@@ -43,8 +43,9 @@ namespace Foodie.Controllers
         //GET: review details page
         public ActionResult Details(string reviewId)
         {
-            
+            //later we can consolidate this into 1 stored procedure instead of 2
             Review review = Querries.getReview(reviewId);
+            review.comments = Querries.getReviewComments(reviewId);
             return View(review);
         }
 

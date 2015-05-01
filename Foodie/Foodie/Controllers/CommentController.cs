@@ -30,7 +30,8 @@ namespace Foodie.Controllers
         public ActionResult Create(CommentViewModel comment)
         {
             //create comment
-            return View();
+            Querries.insertComment(comment);
+            return RedirectToAction("Details", "Review", new { ReviewId = comment.ReviewId});
         }
 
         public ActionResult Details(string commentId)
