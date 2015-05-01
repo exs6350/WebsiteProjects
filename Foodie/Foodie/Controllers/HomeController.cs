@@ -72,7 +72,7 @@ namespace Foodie.Controllers
                             temp.City = reader.GetString(3);
                             temp.State = reader.GetString(4);
                             temp.Country = reader.GetString(5);
-                            temp.Location = reader.IsDBNull(6) ? string.Empty : reader.GetString(6);
+                            //temp.Location = reader.IsDBNull(6) ? string.Empty : reader.G(6);
                             temp.Address = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
                             model.Add(temp);
                         }
