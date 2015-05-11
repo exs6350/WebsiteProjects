@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Web;
+using NpgsqlTypes;
 
 namespace Foodie.Helpers
 {
@@ -48,9 +49,9 @@ namespace Foodie.Helpers
                                 restaurant.City = reader.GetString(3);
                                 restaurant.State = reader.GetString(4);
                                 restaurant.Country = reader.GetString(5);
-                                //skipping location right now because idk how to handle the 'Point' postgres type
-                                //  in this context
+                                restaurant.Location = reader.GetFieldValue<NpgsqlPoint>(6);
                                 restaurant.Address = reader.IsDBNull(7) ? string.Empty : reader.GetString(7);
+                                restaurant.ZipCode = reader.IsDBNull(8) ? string.Empty : reader.GetString(8);
                             }
                             else
                             {

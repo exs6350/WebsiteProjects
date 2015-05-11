@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NpgsqlTypes;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -32,13 +33,16 @@ namespace Foodie.Models
         [Column("State")]
         public string State { get; set; }
 
+        [DataType(DataType.PostalCode)]
+        public string ZipCode { get; set; }
+
         [DataType(DataType.Text)]
         [Column("Country")]
         public string Country { get; set; }
 
         [DataType(DataType.Text)]
         [Column("Location")]
-        public string Location { get; set; }
+        public NpgsqlPoint Location { get; set; }
 
         [DataType(DataType.Text)]
         [Column("Address")]
