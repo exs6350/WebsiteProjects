@@ -49,6 +49,13 @@ namespace Foodie.Controllers
             return View(review);
         }
 
+        [HttpPost]
+        public JsonResult rateHelpfulness(string reviewId, int rating)
+        {
+            Guid personId = (Guid)Session["pId"];
+            
+        }
+
         /// <summary>
         /// Create a Review
         /// </summary>

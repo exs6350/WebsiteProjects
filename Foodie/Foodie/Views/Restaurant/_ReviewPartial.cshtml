@@ -1,0 +1,52 @@
+﻿@model Foodie.Models.Review
+
+<style>
+    .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+    }
+
+        .rating > span {
+            display: inline-block;
+            position: relative;
+            width: 1.1em;
+        }
+
+            .rating > span:hover:before,
+            .rating > span:hover ~ span:before {
+                content: "\2605";
+                position: absolute;
+                cursor: pointer;
+            }
+</style>
+<div class="row" style="max-width:500px; padding-bottom: 5px; outline: 2px solid red;">
+    <div class="row">
+        <div class="col-md-6">
+            <label>
+                @Model.UserName
+            </label>
+            (@Html.DisplayFor(m => m.AverageReviewRating))
+        </div>
+        <div class="col-md-6 rating">
+            <div class="col-md-6">
+                <label>
+                    Helpfulness
+                </label>
+            </div>
+            <div class="col-md-6 rating">
+                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            </div>
+
+
+        </div>
+    </div>
+    <div class=row>
+        <div class="col-md-12">
+            @Html.DisplayFor(m => m.ReviewText)
+        </div>
+    </div>
+    
+</div>
+    
+
+

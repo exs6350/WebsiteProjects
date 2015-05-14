@@ -22,7 +22,7 @@ namespace Foodie.Models
         public string ReviewText { get; set; }
         
         [Column("AverageReviewRating")]
-        public float AverageReviewRating { get; set; }
+        public double AverageReviewRating { get; set; }
 
         [DataType(DataType.DateTime)]
         [Column("DatePosted")]
@@ -46,6 +46,10 @@ namespace Foodie.Models
 
         public int Rating { get; set; }
 
+        //whether or not the user in the current session has already rated 
+        //the helpfulness of this review(for use with listing reviews)
+        public bool currentUserRated;
+
         public IEnumerable<CommentViewModel> comments { get; set; }
 
     }
@@ -66,5 +70,16 @@ namespace Foodie.Models
         public string ReviewText { get; set; }
 
         public int Rating { get; set; }
+    }
+    [Table("HelpfulRatings", Schema = "Public")]
+    public class HelpfullnessViewModel
+    {
+        string HelpfulId { get; set; }
+        string ReviewId { get; set; }
+        string AuthorId { get; set; }
+
+        string RatingUserId { get; set; }
+
+        int Rating { get; set; }
     }
 }

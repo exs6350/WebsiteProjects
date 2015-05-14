@@ -10,62 +10,72 @@
 </style>
 
 <h2>Restaurant Details</h2>
-@Html.HiddenFor(m => m.Location);
+@Html.HiddenFor(m => m.Location)
 
-@Html.ActionLink("Submit a Review!", "Create", "Review", new { restaurantId = Model.RestaurantId}, null)
-<fieldset>
-    <ol>
-        <li>
-            @Html.LabelFor(m => m.Name)
-            @Html.DisplayFor(m => m.Name)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.FoodType)
-            @Html.DisplayFor(m => m.FoodType)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.Address)
-            @Html.DisplayFor(m => m.Address)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.City)
-            @Html.DisplayFor(m => m.City)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.State)
-            @Html.DisplayFor(m => m.State)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.ZipCode)
-            @Html.DisplayFor(m => m.ZipCode)
-        </li>
-        <li>
-            @Html.LabelFor(m => m.Country)
-            @Html.DisplayFor(m => m.Country)
-        </li>
-        
-    </ol>
-    
-    <script src="https://maps.googleapis.com/maps/api/js"></script>
-    <script>
-        function initialize() {
-            var mapCanvas = document.getElementById('map-canvas');
-            var lat = '@Model.Location.X';
-            var long = '@Model.Location.Y';
-            var position = new google.maps.LatLng(lat, long);
-            var mapOptions = {
-                center: position,
-                zoom: 16,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+@Html.ActionLink("Submit a Review!", "Create", "Review", new { restaurantId = Model.RestaurantId}, new {@class="btn btn-info"})
+<div class="row">
+    <div class="col-md-6">
+        <fieldset>
+            <ol>
+                <li>
+                    @Html.LabelFor(m => m.Name)
+                    @Html.DisplayFor(m => m.Name)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.FoodType)
+                    @Html.DisplayFor(m => m.FoodType)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Address)
+                    @Html.DisplayFor(m => m.Address)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.City)
+                    @Html.DisplayFor(m => m.City)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.State)
+                    @Html.DisplayFor(m => m.State)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.ZipCode)
+                    @Html.DisplayFor(m => m.ZipCode)
+                </li>
+                <li>
+                    @Html.LabelFor(m => m.Country)
+                    @Html.DisplayFor(m => m.Country)
+                </li>
+
+            </ol>
+        </fieldset>
+        <script src="https://maps.googleapis.com/maps/api/js"></script>
+        <script>
+            function initialize() {
+                var mapCanvas = document.getElementById('map-canvas');
+                var lat = '@Model.Location.X';
+                var long = '@Model.Location.Y';
+                var position = new google.maps.LatLng(lat, long);
+                var mapOptions = {
+                    center: position,
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+                var map = new google.maps.Map(mapCanvas, mapOptions)
+                var marker = new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    title: '@Model.Name'
+                })
             }
-            var map = new google.maps.Map(mapCanvas, mapOptions)
-            var marker = new google.maps.Marker({
-                position: position,
-                map: map,
-                title: '@Model.Name'
-            })
+            google.maps.event.addDomListener(window, 'load', initialize);
+        </script>
+        <div id="map-canvas"></div>
+    </div>
+    <div class="col-md-6">
+        @foreach (Foodie.Models.Review review in Model.reviews)
+        {
+            Html.RenderPartial("_ReviewPartial", review);
         }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
-    <div id="map-canvas"></div>
-</fieldset>
+    </div>
+</div>
+

@@ -94,7 +94,7 @@ namespace Foodie.Controllers
         public ActionResult Details(string restaurantId)
         {
             Restaurant restaurant = Querries.getRestaurant(restaurantId);
-            GoogleGeoCode(formatAddress(restaurant));
+            restaurant.reviews = Querries.getResterauntReviews(restaurantId);
             return View(restaurant);
         }
 

@@ -110,7 +110,7 @@ namespace Foodie.Helpers
                                 review.ReviewText = reader.GetString(3);
                                 review.Rating = reader.GetInt32(4);
                                 review.DatePosted = reader.GetDateTime(5);
-                                review.AverageReviewRating = reader.GetFloat(6);
+                                review.AverageReviewRating = reader.GetDouble(6);
                             }
                             else
                             {
@@ -233,6 +233,51 @@ namespace Foodie.Helpers
             }
         }
 
+        //public static rateReviewHelpfullness(HelpfullnessViewModel model){
+        //    //insert row into HelpfulRatings table
+        //     using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+        //    {
+        //        using (NpgsqlCommand command = conn.CreateCommand())
+        //        {
+        //            Guid commentId = Guid.NewGuid();
+        //            command.CommandText = string.Format(CultureInfo.InvariantCulture, 
+        //                "INSERT INTO \"HelpfulRatings\" (\"HelpfulId\", \"ReviewId\", \"AuthorId\", \"RatingUserId\", \"Rating\") Values (@HelpfulId, @ReviewId, @AuthorId, @RatingUserId, @Rating)");
+        //            command.Parameters.Add("@CommentId", NpgsqlDbType.Char, 36).Value = Guid.NewGuid().ToString();
+        //            command.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = model.ReviewId;
+        //            command.Parameters.Add("@DateCommented", NpgsqlDbType.Date).Value = DateTime.Now;
+        //            command.Parameters.Add("@CommentText", NpgsqlDbType.Text).Value = comment.CommentText;
+        //            command.Parameters.Add("@CommentOrder", NpgsqlDbType.Integer).Value = 0;
+        //            command.Parameters.Add("@UserId", NpgsqlDbType.Char, 36).Value = comment.UserId;
+        //            try
+        //            {
+        //                conn.Open();
+        //                command.Prepare();
+        //                if (command.ExecuteNonQuery() > 0)
+        //                {
+        //                    //Console.WriteLine("success");
+        //                }
+        //                else
+        //                {
+        //                    //Console.WriteLine("failure");
+        //                }
+        //            }
+        //            catch (NpgsqlException e)
+        //            {
+        //                Trace.WriteLine(e.ToString());
+        //            }
+        //            finally
+        //            {
+        //                if (conn != null)
+        //                {
+        //                    conn.Close();
+        //                }
+        //            }
+        //        }
+        //    }
+        //    //update average rating for review entry
+        //    //update average rating of user
+        //}
+
         public static CommentViewModel getCommentInfo(string commentId) 
         {
             using (var connection = new Npgsql.NpgsqlConnection(connectionString))
@@ -292,6 +337,61 @@ namespace Foodie.Helpers
                             temp.commentOrder = reader.GetInt32(4);
                             temp.UserName = reader.GetString(5);
                             
+                            model.Add(temp);
+                        }
+                        reader.Close();
+                        transaction.Commit();
+                    }
+                }
+                catch (NpgsqlException e)
+                {
+                    Trace.WriteLine(e.ToString());
+                }
+                finally
+                {
+                    if (conn != null)
+                    {
+                        conn.Close();
+                    }
+                }
+            }
+            return model;
+        }
+
+        public static IEnumerable<Review> getResterauntReviews(string restaurantId)
+        {
+            List<Foodie.Models.Review> model = new List<Foodie.Models.Review>();
+
+            if (string.IsNullOrEmpty(restaurantId)) { return null; }
+
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                try
+                {
+                    conn.Open();
+                    //Stored Procedure that executes a search on a query
+                    //This returns a cursor to the data set need to do this in a transaction
+                    NpgsqlTransaction transaction = conn.BeginTransaction();
+                    NpgsqlCommand command = conn.CreateCommand();
+                    //Yes this is vulnerable to sql injection will sanitize this later.....
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, "retrievereviews(" + "'" + restaurantId + "'" + ")");
+                    command.Transaction = transaction;
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    using (NpgsqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Foodie.Models.Review temp = new Foodie.Models.Review();
+                            temp.ReviewId = Guid.Parse(reader.GetString(0));
+                            temp.Rating = reader.GetInt32(1);
+                            temp.UserId = Guid.Parse(reader.GetString(2));
+                            temp.ReviewText = reader.GetString(3);
+                            //temp.AverageReviewRating = (double)reader.GetValue(4);
+                            temp.DatePosted = reader.GetDateTime(5);
+                            temp.UserName = reader.GetString(6);
+                  
+
                             model.Add(temp);
                         }
                         reader.Close();

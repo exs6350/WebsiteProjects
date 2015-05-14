@@ -454,6 +454,7 @@
     <Content Include="Views\Review\_AddComment.cshtml" />
     <Content Include="Views\Review\_CommentDetails.cshtml" />
     <Content Include="Views\Profile\Profile.cshtml" />
+    <Content Include="Views\Restaurant\_ReviewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

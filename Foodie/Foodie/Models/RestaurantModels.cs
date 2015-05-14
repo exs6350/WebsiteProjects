@@ -47,6 +47,8 @@ namespace Foodie.Models
         [DataType(DataType.Text)]
         [Column("Address")]
         public string Address { get; set; }
+
+        public IEnumerable<Review> reviews { get; set; }
     }
 }
 
