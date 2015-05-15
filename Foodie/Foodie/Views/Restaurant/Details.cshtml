@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Details";
 }
+
 <style>
     #map-canvas {
         width: 500px;
@@ -72,10 +73,16 @@
         <div id="map-canvas"></div>
     </div>
     <div class="col-md-6">
-        @foreach (Foodie.Models.Review review in Model.reviews)
+        @foreach (Foodie.Models.Review review in Model.reviews.OrderByDescending(r => r.AverageReviewRating))
         {
             Html.RenderPartial("_ReviewPartial", review);
         }
     </div>
 </div>
+
+@section Scripts{
+    @Scripts.Render("~/Scripts/partialReviewScript.js");
+}
+
+    @Styles.Render("~/Content/bootstrap.min.css");
 

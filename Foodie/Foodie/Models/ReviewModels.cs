@@ -50,6 +50,8 @@ namespace Foodie.Models
         //the helpfulness of this review(for use with listing reviews)
         public bool currentUserRated;
 
+        public string currentUser { get; set; }
+
         public IEnumerable<CommentViewModel> comments { get; set; }
 
     }
@@ -74,12 +76,12 @@ namespace Foodie.Models
     [Table("HelpfulRatings", Schema = "Public")]
     public class HelpfullnessViewModel
     {
-        string HelpfulId { get; set; }
-        string ReviewId { get; set; }
-        string AuthorId { get; set; }
+        public string HelpfulId { get; set; }
+        public string ReviewId { get; set; }
+        public string AuthorId { get; set; }
 
-        string RatingUserId { get; set; }
+        public string RatingUserId { get; set; }
 
-        int Rating { get; set; }
+        public int Rating { get; set; }
     }
 }

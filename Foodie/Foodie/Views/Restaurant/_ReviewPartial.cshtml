@@ -1,19 +1,19 @@
 ﻿@model Foodie.Models.Review
 
 <style>
-    .rating {
+    .ratingStars {
         unicode-bidi: bidi-override;
         direction: rtl;
     }
 
-        .rating > span {
+        .ratingStars > span {
             display: inline-block;
             position: relative;
             width: 1.1em;
         }
 
-            .rating > span:hover:before,
-            .rating > span:hover ~ span:before {
+            .ratingStars > span:hover:before,
+            .ratingStars > span:hover ~ span:before {
                 content: "\2605";
                 position: absolute;
                 cursor: pointer;
@@ -21,23 +21,37 @@
 </style>
 <div class="row" style="max-width:500px; padding-bottom: 5px; outline: 2px solid red;">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label>
                 @Model.UserName
             </label>
-            (@Html.DisplayFor(m => m.AverageReviewRating))
+            @{
+                var ratingString = Model.AverageReviewRating.ToString();
+                var shortRating = ratingString;
+                if (ratingString.Length > 4)
+                {
+                    shortRating = ratingString.Substring(0, 4);
+                }
+            }
+            (<span class="averageRating">@shortRating</span>)
+            <input type="hidden" name="reviewId" id="reviewId" value="@Model.ReviewId" />
+            <input type="hidden" name="userId" id="userId" value="@HttpContext.Current.Session["pId"].ToString()" />
+            
         </div>
-        <div class="col-md-6 rating">
-            <div class="col-md-6">
+        <div class="col-md-8 rating">
+            <div class="col-md-5">
                 <label>
                     Helpfulness
                 </label>
             </div>
-            <div class="col-md-6 rating">
-                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+            <div class="col-md-4 ratingStars">
+                <input type="hidden" class="hiddenRating" />
+                <span class="star" id="star5">☆</span><span class="star" id="star4">☆</span><span class="star" id="star3">☆</span><span class="star" id="star2">☆</span><span class="star" id="star1">☆</span>
             </div>
-
-
+            <div class ="col-md-3 rateButton">
+                <button class="btn btn-danger">Rate!</button>
+            </div>
+            
         </div>
     </div>
     <div class=row>
@@ -47,6 +61,7 @@
     </div>
     
 </div>
-    
+
+
 
 

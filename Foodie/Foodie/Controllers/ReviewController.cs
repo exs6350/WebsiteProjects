@@ -50,11 +50,20 @@ namespace Foodie.Controllers
         }
 
         [HttpPost]
-        public JsonResult rateHelpfulness(string reviewId, int rating)
+        public JsonResult rateHelpfulness(string reviewId, int rating, string authorId)
         {
+            HelpfullnessViewModel helpModel = new HelpfullnessViewModel();
             Guid personId = (Guid)Session["pId"];
-            
+            helpModel.HelpfulId = Guid.NewGuid().ToString();
+            helpModel.RatingUserId = personId.ToString();
+            helpModel.ReviewId = reviewId;
+            helpModel.Rating = rating;
+            helpModel.AuthorId = authorId;
+            double newAverage = Querries.rateReviewHelpfullness(helpModel);
+            return Json(newAverage, JsonRequestBehavior.AllowGet);
         }
+            
+        //}
 
         /// <summary>
         /// Create a Review

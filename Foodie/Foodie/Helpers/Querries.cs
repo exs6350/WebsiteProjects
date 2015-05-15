@@ -233,50 +233,128 @@ namespace Foodie.Helpers
             }
         }
 
-        //public static rateReviewHelpfullness(HelpfullnessViewModel model){
-        //    //insert row into HelpfulRatings table
-        //     using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
-        //    {
-        //        using (NpgsqlCommand command = conn.CreateCommand())
-        //        {
-        //            Guid commentId = Guid.NewGuid();
-        //            command.CommandText = string.Format(CultureInfo.InvariantCulture, 
-        //                "INSERT INTO \"HelpfulRatings\" (\"HelpfulId\", \"ReviewId\", \"AuthorId\", \"RatingUserId\", \"Rating\") Values (@HelpfulId, @ReviewId, @AuthorId, @RatingUserId, @Rating)");
-        //            command.Parameters.Add("@CommentId", NpgsqlDbType.Char, 36).Value = Guid.NewGuid().ToString();
-        //            command.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = model.ReviewId;
-        //            command.Parameters.Add("@DateCommented", NpgsqlDbType.Date).Value = DateTime.Now;
-        //            command.Parameters.Add("@CommentText", NpgsqlDbType.Text).Value = comment.CommentText;
-        //            command.Parameters.Add("@CommentOrder", NpgsqlDbType.Integer).Value = 0;
-        //            command.Parameters.Add("@UserId", NpgsqlDbType.Char, 36).Value = comment.UserId;
-        //            try
-        //            {
-        //                conn.Open();
-        //                command.Prepare();
-        //                if (command.ExecuteNonQuery() > 0)
-        //                {
-        //                    //Console.WriteLine("success");
-        //                }
-        //                else
-        //                {
-        //                    //Console.WriteLine("failure");
-        //                }
-        //            }
-        //            catch (NpgsqlException e)
-        //            {
-        //                Trace.WriteLine(e.ToString());
-        //            }
-        //            finally
-        //            {
-        //                if (conn != null)
-        //                {
-        //                    conn.Close();
-        //                }
-        //            }
-        //        }
-        //    }
-        //    //update average rating for review entry
-        //    //update average rating of user
-        //}
+        public static double rateReviewHelpfullness(HelpfullnessViewModel model){
+            //insert row into HelpfulRatings table
+             using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    Guid commentId = Guid.NewGuid();
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture, 
+                        "INSERT INTO \"HelpfullRatings\" (\"HelpfulId\", \"ReviewId\", \"AuthorId\", \"RatingUserId\", \"Rating\") Values (@HelpfulId, @ReviewId, @AuthorId, @RatingUserId, @Rating)");
+                    command.Parameters.Add("@HelpfulId", NpgsqlDbType.Char, 36).Value = Guid.NewGuid().ToString();
+                    command.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = model.ReviewId;
+                    command.Parameters.Add("@AuthorId", NpgsqlDbType.Char, 36).Value =model.AuthorId;
+                    command.Parameters.Add("@RatingUserId", NpgsqlDbType.Char, 36).Value = model.RatingUserId;
+                    command.Parameters.Add("@Rating", NpgsqlDbType.Integer).Value = model.Rating;
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            //Console.WriteLine("success");
+                        }
+                        else
+                        {
+                            //Console.WriteLine("failure");
+                        }
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+             double average = getAverageRating(model.ReviewId);
+             updateAverageRating(model.ReviewId, average);
+             return average;
+        }
+
+        /// <summary>
+        /// updates a review's average rating by averaging all of the helpfulratings rows
+        /// </summary>
+        public static double getAverageRating(string reviewId){
+            Review review = null;
+            double average = 0.0;
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    command.CommandText = "SELECT AVG(\"Rating\") FROM \"HelpfullRatings\" WHERE \"ReviewId\" = @ReviewId";
+                    command.Parameters.Add("@ReviewId", NpgsqlDbType.Char, 36).Value = reviewId;
+
+                    
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+
+                       Decimal temp = (Decimal)command.ExecuteScalar();
+                       average = Convert.ToDouble(temp);
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+
+            return average;
+        }
+
+        public static void updateAverageRating(string reviewId, double average)
+        {
+            using (NpgsqlConnection conn = new NpgsqlConnection(connectionString))
+            {
+                using (NpgsqlCommand command = conn.CreateCommand())
+                {
+                    Guid commentId = Guid.NewGuid();
+                    command.CommandText = string.Format(CultureInfo.InvariantCulture,
+                        "UPDATE \"Reviews\" set \"AverageReviewRating\" = :Rating WHERE \"ReviewId\" = '" +  reviewId + "' ;");
+                    command.Parameters.Add("Rating", NpgsqlDbType.Double).Value = average;
+                    try
+                    {
+                        conn.Open();
+                        command.Prepare();
+                        if (command.ExecuteNonQuery() > 0)
+                        {
+                            //Console.WriteLine("success");
+                        }
+                        else
+                        {
+                            //Console.WriteLine("failure");
+                        }
+                    }
+                    catch (NpgsqlException e)
+                    {
+                        Trace.WriteLine(e.ToString());
+                    }
+                    finally
+                    {
+                        if (conn != null)
+                        {
+                            conn.Close();
+                        }
+                    }
+                }
+            }
+        }
 
         public static CommentViewModel getCommentInfo(string commentId) 
         {
@@ -387,7 +465,7 @@ namespace Foodie.Helpers
                             temp.Rating = reader.GetInt32(1);
                             temp.UserId = Guid.Parse(reader.GetString(2));
                             temp.ReviewText = reader.GetString(3);
-                            //temp.AverageReviewRating = (double)reader.GetValue(4);
+                            temp.AverageReviewRating = (Double)reader.GetFloat(4);
                             temp.DatePosted = reader.GetDateTime(5);
                             temp.UserName = reader.GetString(6);
                   

@@ -2,7 +2,6 @@
 @{
     ViewBag.Title = "View";
 }
-
 <h2>Review for @Model.RestaurantName</h2>
     <fieldset>
         <ol>
@@ -34,4 +33,7 @@
 @foreach (Foodie.Models.CommentViewModel comment in Model.comments)
 {
     Html.RenderPartial("_CommentDetails", comment);
+}
+@section Scripts{
+    @Scripts.Render("~/Scripts/partialReviewScript.js");
 }
